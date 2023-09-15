@@ -1,6 +1,9 @@
 package controladores;
 
+import sportyfy.core.IniciadorSportyfyCore;
 import sportyfy.ui.VentanaInicial;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class VentanaInicialControlador {
    VentanaInicial ventanaInicial;
@@ -9,8 +12,9 @@ public class VentanaInicialControlador {
        this.ventanaInicial = new VentanaInicial();
     }
 
-    public void iniciar() {
-        this.ventanaInicial.inicializar();
+    public void iniciar(IniciadorSportyfyCore iniciador) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+        this.ventanaInicial.inicializar(iniciador);
+        this.ventanaInicial.llenarCombo(iniciador.getBuscadorPronosticadores());
     }
 
 

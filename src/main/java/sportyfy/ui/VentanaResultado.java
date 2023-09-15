@@ -1,14 +1,14 @@
 package sportyfy.ui;
+import sportyfy.core.Pronostico;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class VentanaResultado {
     private JFrame frame;
+    private JLabel etiquetaEquipoGanador;
 
     public VentanaResultado() {
     }
@@ -36,20 +36,44 @@ public class VentanaResultado {
         botonNuevaPrediccion.setBounds(94, 272, 157, 39);
         frame.getContentPane().add(botonNuevaPrediccion);
 */
-        JLabel etiquetaTitulo = new JLabel("Segun Sportyfy el equipo ganador sera");
+        JLabel etiquetaTitulo = new JLabel("Según Sportyfy el equipo ganador será");
         etiquetaTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         etiquetaTitulo.setForeground(new Color(0, 0, 64));
         etiquetaTitulo.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        etiquetaTitulo.setBounds(10, 68, 328, 23);
+        etiquetaTitulo.setBounds(10, 38, 328, 23);
         frame.getContentPane().add(etiquetaTitulo);
 
-        JLabel etiquetaEquipoGanador = new JLabel("*equipo ganador*");
+        etiquetaEquipoGanador = new JLabel();
         etiquetaEquipoGanador.setHorizontalAlignment(SwingConstants.CENTER);
         etiquetaEquipoGanador.setForeground(new Color(0, 0, 64));
         etiquetaEquipoGanador.setFont(new Font("Encode Sans", Font.BOLD, 15));
-        etiquetaEquipoGanador.setBounds(10, 102, 328, 23);
+        etiquetaEquipoGanador.setBounds(10, 72, 328, 23);
         frame.getContentPane().add(etiquetaEquipoGanador);
 
+
+
         frame.setVisible(true);
+    }
+
+    public void mensajeGanador(Pronostico pronostico){
+        if(pronostico.getEquipoGanador()==null){
+            etiquetaEquipoGanador.setText("No hay Pronóstico a favor de un equipo, se prevee un Empate");
+        }
+        else{
+            String ganador = pronostico.getEquipoGanador().getNombre();
+            etiquetaEquipoGanador.setText("El equipo ganador sera : " + ganador);
+
+            JLabel img = new JLabel(" ");
+            ImageIcon image = new ImageIcon(ganador.toLowerCase()+".png");
+            System.out.println(ganador.toLowerCase());
+            image = new ImageIcon(image.getImage().getScaledInstance(137, 135, Image.SCALE_DEFAULT));
+            frame.getContentPane().add(img); //
+
+            //Propiedades de la etiqueta
+            img.setIcon(image);
+            img.setSize(137,135);
+            img.setLocation(111,135);
+            img.setVisible(true);
+        }
     }
 }

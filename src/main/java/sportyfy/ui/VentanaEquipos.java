@@ -1,8 +1,13 @@
 package sportyfy.ui;
+import controladores.VentanaResultadoControlador;
+import sportyfy.core.IniciadorSportyfyCore;
+import sportyfy.core.futbol.Equipo;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class VentanaEquipos extends javax.swing.JFrame {
     private JFrame frame;
@@ -17,7 +22,7 @@ public class VentanaEquipos extends javax.swing.JFrame {
 
     }
 
-    public void inicializar() {
+    public void inicializar(IniciadorSportyfyCore iniciador) {
         frame = new JFrame();
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo-pelota.png"));
         frame.setTitle("Sportyfy");
@@ -45,8 +50,10 @@ public class VentanaEquipos extends javax.swing.JFrame {
                 else{
                     System.out.println(equipoSeleccionadoA);
                     frame.setVisible(false);
-                    VentanaResultado ventanaResultado = new VentanaResultado();
-                    ventanaResultado.inicializar();
+                    VentanaResultadoControlador controlador = new VentanaResultadoControlador(iniciador,equipoSeleccionadoA, equipoSeleccionadoB);
+                    controlador.iniciar();
+                    //VentanaResultado ventanaResultado = new VentanaResultado();
+                    //ventanaResultado.inicializar();
                 }
 
 
@@ -55,13 +62,8 @@ public class VentanaEquipos extends javax.swing.JFrame {
 
         comboEquipoA = new JComboBox<String>();
         comboEquipoA.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        comboEquipoA.setBounds(41, 203, 105, 22);
+        comboEquipoA.setBounds(10, 203, 136, 22);
         frame.getContentPane().add(comboEquipoA);
-        comboEquipoA.addItem("Boca");
-        comboEquipoA.addItem("River");
-        comboEquipoA.addItem("San Lorenzo");
-        comboEquipoA.addItem("Racing");
-        comboEquipoA.addItem("Independiente");
 
         JLabel etiquetaSeleccion = new JLabel("Seleccione dos equipos:");
         etiquetaSeleccion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,13 +81,8 @@ public class VentanaEquipos extends javax.swing.JFrame {
 
         comboEquipoB = new JComboBox<String>();
         comboEquipoB.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        comboEquipoB.setBounds(199, 203, 105, 22);
+        comboEquipoB.setBounds(199, 203, 139, 22);
         frame.getContentPane().add(comboEquipoB);
-        comboEquipoB.addItem("Boca");
-        comboEquipoB.addItem("River");
-        comboEquipoB.addItem("San Lorenzo");
-        comboEquipoB.addItem("Racing");
-        comboEquipoB.addItem("Independiente");
 
         JLabel img = new JLabel(" ");
         ImageIcon image = new ImageIcon("pelota-futbol.png");
@@ -100,6 +97,13 @@ public class VentanaEquipos extends javax.swing.JFrame {
 
 
         frame.setVisible(true);
+    }
+
+    public void llenarCombos(ArrayList<Equipo> equipos){
+        for (Equipo e : equipos){
+            comboEquipoA.addItem(e.getNombre());
+            comboEquipoB.addItem(e.getNombre());
+        }
     }
 
     public JButton getBoton(){

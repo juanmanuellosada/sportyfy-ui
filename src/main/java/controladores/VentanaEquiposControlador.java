@@ -1,8 +1,14 @@
 package controladores;
 
+import sportyfy.core.IniciadorSportyfyCore;
+import sportyfy.core.futbol.Equipo;
 import sportyfy.ui.VentanaEquipos;
 
+
+import java.util.ArrayList;
+
 public class VentanaEquiposControlador {//implements ActionListener {
+
     VentanaEquipos ventanaEquipos;
     String equipoSeleccionadoA;
     String equipoSeleccionadoB;
@@ -11,23 +17,8 @@ public class VentanaEquiposControlador {//implements ActionListener {
        this.ventanaEquipos = new VentanaEquipos();
     }
 
-    public void extracted() {
-        this.ventanaEquipos.inicializar();
-//        this.ventanaEquipos.getBoton().addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                String equipoSeleccionadoA;
-//                equipoSeleccionadoA = (String)ventanaEquipos.getComboEquipoA().getSelectedItem();
-//                equipoSeleccionadoB = (String)ventanaEquipos.getComboEquipoB().getSelectedItem();
-//                System.out.println(equipoSeleccionadoA);
-//
-//            }
-//        });
+    public void iniciar(IniciadorSportyfyCore iniciador) {
+        this.ventanaEquipos.inicializar(iniciador);
+        this.ventanaEquipos.llenarCombos((ArrayList<Equipo>) iniciador.getEquipos());
     }
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        equipoSeleccionadoA = (String)this.ventanaEquipos.getComboEquipoA().getSelectedItem();
-//        equipoSeleccionadoB = (String) this.ventanaEquipos.getComboEquipoB().getSelectedItem();
-//        System.out.println(equipoSeleccionadoA);
-//    }
 }
