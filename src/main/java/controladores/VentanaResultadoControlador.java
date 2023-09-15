@@ -1,4 +1,4 @@
-package controller;
+package controladores;
 
 import sportyfy.core.IniciadorSportyfyCore;
 import sportyfy.core.Pronosticador;

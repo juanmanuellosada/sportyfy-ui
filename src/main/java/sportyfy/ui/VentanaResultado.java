@@ -36,7 +36,7 @@ public class VentanaResultado {
         botonNuevaPrediccion.setBounds(94, 272, 157, 39);
         frame.getContentPane().add(botonNuevaPrediccion);
 */
-        JLabel etiquetaTitulo = new JLabel("Segun Sportyfy el equipo ganador sera");
+        JLabel etiquetaTitulo = new JLabel("Según Sportyfy el equipo ganador será");
         etiquetaTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         etiquetaTitulo.setForeground(new Color(0, 0, 64));
         etiquetaTitulo.setFont(new Font("Encode Sans", Font.PLAIN, 15));

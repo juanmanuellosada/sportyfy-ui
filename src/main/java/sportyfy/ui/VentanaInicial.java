@@ -49,7 +49,7 @@ public class VentanaInicial  {
         etiquetaBienvenido.setBounds(10, 28, 328, 23);
         frame.getContentPane().add(etiquetaBienvenido);
 
-        JLabel etiquetaMsjInicio = new JLabel("<html><body>Sportyfy te brindara un pronostico</body></html>");
+        JLabel etiquetaMsjInicio = new JLabel("<html><body>¡Sportyfy te brindará un pronóstico</body></html>");
         etiquetaMsjInicio.setHorizontalAlignment(SwingConstants.CENTER);
         etiquetaMsjInicio.setForeground(new Color(0, 0, 64));
         etiquetaMsjInicio.setFont(new Font("Encode Sans", Font.PLAIN, 13));

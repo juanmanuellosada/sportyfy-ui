@@ -1,13 +1,15 @@
 package main;
 
-import controller.VentanaInicialController;
+import controladores.VentanaInicialControlador;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+import java.lang.reflect.InvocationTargetException;
 
 import sportyfy.core.*;
 import sportyfy.core.futbol.Equipo;
 import sportyfy.core.futbol.Partido;
 
+<<<<<<< HEAD
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -33,6 +35,15 @@ public class Main implements Pronosticador {
                 } catch (NoSuchMethodException e) {
                     throw new RuntimeException(e);
                 }
+=======
+    public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException  {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //IniciadorSportyfyCore iniciadorSportyfyCore = new IniciadorSportyfyCore();
+                //iniciadorSportyfyCore.iniciar("../sportyfy-core/datosFutbol/equipos/equipos.json","../sportyfy-core/datosFutbol/ultimos_resultados/","../sportyfy/src/pronosticadores");
+                VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
+                ventanaInicialControlador.iniciar();
+>>>>>>> b43e6bf52047950ecec48662612eb42ac3e8bc4d
             }
         });
     }
