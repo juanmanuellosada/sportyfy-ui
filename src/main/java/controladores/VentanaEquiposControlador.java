@@ -1,16 +1,13 @@
-package controller;
+package controladores;
 
 import sportyfy.ui.VentanaEquipos;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-public class VentanaEquiposController {//implements ActionListener {
+public class VentanaEquiposControlador {//implements ActionListener {
     VentanaEquipos ventanaEquipos;
     String equipoSeleccionadoA;
     String equipoSeleccionadoB;
 
-    public VentanaEquiposController(){
+    public VentanaEquiposControlador(){
        this.ventanaEquipos = new VentanaEquipos();
     }
 

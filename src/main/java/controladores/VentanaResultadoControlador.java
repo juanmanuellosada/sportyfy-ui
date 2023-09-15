@@ -1,11 +1,11 @@
-package controller;
+package controladores;
 
 import sportyfy.ui.VentanaResultado;
 
-public class VentanaResultadoController {
+public class VentanaResultadoControlador {
     VentanaResultado ventanaResultado;
 
-    public VentanaResultadoController(){
+    public VentanaResultadoControlador(){
        this.ventanaResultado = new VentanaResultado();
     }
 
