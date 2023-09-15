@@ -1,4 +1,10 @@
 package sportyfy.ui;
+import controller.VentanaEquiposController;
+import sportyfy.core.BuscadorPronosticadores;
+import sportyfy.core.IniciadorSportyfyCore;
+import sportyfy.core.Pronosticador;
+import sportyfy.core.futbol.Equipo;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -7,6 +13,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionEvent;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Set;
 import javax.swing.*;
 
 public class VentanaInicial  {
@@ -20,7 +29,7 @@ public class VentanaInicial  {
     }
 
      // Initialize the contents of the frame.
-    public void inicializar() {
+    public void inicializar(IniciadorSportyfyCore iniciador) {
 
         frame = new JFrame();
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo-pelota.png"));
@@ -64,9 +73,6 @@ public class VentanaInicial  {
         comboDeportes = new JComboBox<String>();
         comboDeportes.setFont(new Font("Encode Sans", Font.PLAIN, 15));
         comboDeportes.setBounds(109, 223, 128, 28);
-        comboDeportes.addItem("Futbol");
-        comboDeportes.addItem("Basket");
-        comboDeportes.addItem("Hockey");
         frame.getContentPane().add(comboDeportes);
 
         botonContinuar = new JButton("Continuar");
@@ -77,8 +83,10 @@ public class VentanaInicial  {
             public void actionPerformed(ActionEvent e) {
                 deporteSeleccionado[0] = comboDeportes.getSelectedItem().toString();
                 frame.setVisible(false);
-                VentanaEquipos ventanaEquipos = new VentanaEquipos();
-                ventanaEquipos.inicializar();
+                VentanaEquiposController ventanaEquiposController = new VentanaEquiposController();
+                ventanaEquiposController.iniciar(iniciador);
+                //VentanaEquipos ventanaEquipos = new VentanaEquipos();
+                //ventanaEquipos.inicializar(iniciador);
                 System.out.println(deporteSeleccionado[0]);
 
             }
@@ -95,7 +103,10 @@ public class VentanaInicial  {
         img.setLocation(59,54);
         img.setVisible(true);
         frame.setVisible(true);
+
     }
+
+
 
     public JFrame getFrame(){
         return frame;
@@ -106,4 +117,10 @@ public class VentanaInicial  {
     }
 
 
+    public void llenarCombo(BuscadorPronosticadores buscadorPronosticadores) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+        Set<Pronosticador> pronosticadores = buscadorPronosticadores.buscarPronosticadores("src/pronosticadores");
+        for (Pronosticador p : pronosticadores){
+            comboDeportes.addItem(p.obtenerDeporte());
+        }
+    }
 }

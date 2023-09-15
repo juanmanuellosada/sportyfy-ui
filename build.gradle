@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.13.2'
-    implementation 'com.github.juanmanuellosada:sportyfy-core:2de19048b2'
+    implementation 'com.github.juanmanuellosada:sportyfy-core:3a94fb1605'
 }
 
 mainClassName = 'sportyfy.ui.Main'
