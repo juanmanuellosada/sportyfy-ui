@@ -1,4 +1,5 @@
 package sportyfy.ui;
+import controller.VentanaResultadoController;
 import sportyfy.core.IniciadorSportyfyCore;
 import sportyfy.core.futbol.Equipo;
 
@@ -49,8 +50,10 @@ public class VentanaEquipos extends javax.swing.JFrame {
                 else{
                     System.out.println(equipoSeleccionadoA);
                     frame.setVisible(false);
-                    VentanaResultado ventanaResultado = new VentanaResultado();
-                    ventanaResultado.inicializar();
+                    VentanaResultadoController controlador = new VentanaResultadoController(iniciador,equipoSeleccionadoA, equipoSeleccionadoB);
+                    controlador.iniciar();
+                    //VentanaResultado ventanaResultado = new VentanaResultado();
+                    //ventanaResultado.inicializar();
                 }
 
 

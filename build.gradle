@@ -16,4 +16,4 @@ dependencies {
     implementation 'com.github.juanmanuellosada:sportyfy-core:3a94fb1605'
 }
 
-mainClassName = 'sportyfy.ui.Main'
+mainClassName = 'main.Main'
