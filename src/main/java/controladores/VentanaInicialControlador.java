@@ -1,13 +1,11 @@
 package controladores;
 
 import sportyfy.core.IniciadorSportyfyCore;
-import sportyfy.core.futbol.Equipo;
 import sportyfy.ui.VentanaInicial;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
-public class VentanaInicialController {
+public class VentanaInicialControlador {
    VentanaInicial ventanaInicial;
 
     public VentanaInicialControlador(){

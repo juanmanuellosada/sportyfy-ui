@@ -8,7 +8,7 @@ import sportyfy.ui.VentanaResultado;
 
 import java.util.List;
 
-public class VentanaResultadoController {
+public class VentanaResultadoControlador {
     VentanaResultado ventanaResultado;
     private IniciadorSportyfyCore iniciador;
     private String local;
@@ -16,7 +16,7 @@ public class VentanaResultadoController {
     private Equipo equipoLocal;
     private Equipo equipoVisitante;
 
-    public VentanaResultadoController(IniciadorSportyfyCore iniciador, String local, String visitante){
+    public VentanaResultadoControlador(IniciadorSportyfyCore iniciador, String local, String visitante){
        this.iniciador=iniciador;
        this.local = local;
        this.visitante = visitante;

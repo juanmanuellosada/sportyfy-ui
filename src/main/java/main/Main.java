@@ -6,14 +6,8 @@ import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 
 import sportyfy.core.*;
-import sportyfy.core.futbol.Equipo;
-import sportyfy.core.futbol.Partido;
 
-<<<<<<< HEAD
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
-public class Main implements Pronosticador {
+public class Main {
 
 
     public static void main(String[] args)  throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
@@ -22,39 +16,13 @@ public class Main implements Pronosticador {
                 IniciadorSportyfyCore iniciador = new IniciadorSportyfyCore();
                 try {
                     iniciador.iniciar("datosFutbol/equipos/equipos.json", "datosFutbol/ultimos_resultados/", "src/pronosticadores");
-                    VentanaInicialController ventanaInicialController = new VentanaInicialController();
-                    ventanaInicialController.iniciar(iniciador);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                } catch (InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                } catch (InstantiationException e) {
-                    throw new RuntimeException(e);
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException(e);
+                    VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
+                    ventanaInicialControlador.iniciar(iniciador);
+                } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
+                         InstantiationException | NoSuchMethodException e) {
+                    e.printStackTrace();
                 }
-=======
-    public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException  {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                //IniciadorSportyfyCore iniciadorSportyfyCore = new IniciadorSportyfyCore();
-                //iniciadorSportyfyCore.iniciar("../sportyfy-core/datosFutbol/equipos/equipos.json","../sportyfy-core/datosFutbol/ultimos_resultados/","../sportyfy/src/pronosticadores");
-                VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
-                ventanaInicialControlador.iniciar();
->>>>>>> b43e6bf52047950ecec48662612eb42ac3e8bc4d
             }
         });
-    }
-
-    @Override
-    public Pronostico pronosticar(Equipo equipoLocal, Equipo equipoVisitante, List<Partido> partidosAnteriores) {
-        return null;
-    }
-
-    @Override
-    public String obtenerDeporte() {
-        return null;
     }
 }

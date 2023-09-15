@@ -1,5 +1,5 @@
 package sportyfy.ui;
-import controller.VentanaEquiposController;
+import controladores.VentanaEquiposControlador;
 import sportyfy.core.BuscadorPronosticadores;
 import sportyfy.core.IniciadorSportyfyCore;
 import sportyfy.core.Pronosticador;
@@ -83,7 +83,7 @@ public class VentanaInicial  {
             public void actionPerformed(ActionEvent e) {
                 deporteSeleccionado[0] = comboDeportes.getSelectedItem().toString();
                 frame.setVisible(false);
-                VentanaEquiposController ventanaEquiposController = new VentanaEquiposController();
+                VentanaEquiposControlador ventanaEquiposController = new VentanaEquiposControlador();
                 ventanaEquiposController.iniciar(iniciador);
                 //VentanaEquipos ventanaEquipos = new VentanaEquipos();
                 //ventanaEquipos.inicializar(iniciador);
