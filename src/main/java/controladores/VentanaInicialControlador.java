@@ -1,11 +1,11 @@
-package controller;
+package controladores;
 
 import sportyfy.ui.VentanaInicial;
 
-public class VentanaInicialController{
+public class VentanaInicialControlador {
    VentanaInicial ventanaInicial;
 
-    public VentanaInicialController (){
+    public VentanaInicialControlador(){
        this.ventanaInicial = new VentanaInicial();
     }
 
