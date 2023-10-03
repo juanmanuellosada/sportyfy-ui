@@ -1,32 +1,35 @@
 package controladores;
 
-import sportyfy.core.IniciadorSportyfyCore;
 import sportyfy.core.Pronosticador;
 import sportyfy.core.Pronostico;
-import sportyfy.core.futbol.Equipo;
+import sportyfy.core.entidades.Equipo;
+import sportyfy.core.modelo.SportyfyCore;
 import sportyfy.ui.VentanaResultado;
-
 import java.util.List;
 
 public class VentanaResultadoControlador {
     VentanaResultado ventanaResultado;
-    private IniciadorSportyfyCore iniciador;
+    private SportyfyCore iniciador;
     private String local;
     private String visitante;
     private Equipo equipoLocal;
     private Equipo equipoVisitante;
 
-    public VentanaResultadoControlador(IniciadorSportyfyCore iniciador, String local, String visitante){
-       this.iniciador=iniciador;
+    public VentanaResultadoControlador(SportyfyCore sportyfyCore, String local, String visitante){
+       this.iniciador=sportyfyCore;
        this.local = local;
        this.visitante = visitante;
        this.ventanaResultado = new VentanaResultado();
     }
 
-    public void iniciar() {
+    public void iniciar(SportyfyCore sportyfyCore) {
         this.ventanaResultado.inicializar();
-        Pronosticador pronosticador = iniciador.getBuscadorPronosticadores().getPronosticadores().iterator().next();
-        Pronostico pronostico = pronosticador.pronosticar(buscarEquipo(local),buscarEquipo(visitante),iniciador.getPartidos());
+//        Pronosticador pronosticador = iniciador.getBuscadorPronosticadores().getPronosticadores().iterator().next();
+//        Pronostico pronostico = pronosticador.pronosticar(buscarEquipo(local),buscarEquipo(visitante),iniciador.getPartidos());
+
+        Pronosticador pronosticador = sportyfyCore.getBuscadorPronosticadores().getPronosticadores().iterator().next();
+        sportyfyCore.pronosticar(buscarEquipo(local),buscarEquipo(visitante),iniciador.getPartidos(), pronosticador.getClass().getSimpleName());
+        Pronostico pronostico = sportyfyCore.getPronosticoActual();
         this.ventanaResultado.mensajeGanador(pronostico);
     }
 

@@ -1,10 +1,12 @@
 package controladores;
-
-import sportyfy.core.IniciadorSportyfyCore;
-import sportyfy.core.futbol.Equipo;
+import sportyfy.core.entidades.Equipo;
+import sportyfy.core.iniciador.IniciadorSportyfyCore;
+import sportyfy.core.modelo.SportyfyCore;
 import sportyfy.ui.VentanaEquipos;
 
-
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VentanaEquiposControlador {//implements ActionListener {
@@ -13,12 +15,27 @@ public class VentanaEquiposControlador {//implements ActionListener {
     String equipoSeleccionadoA;
     String equipoSeleccionadoB;
 
-    public VentanaEquiposControlador(){
-       this.ventanaEquipos = new VentanaEquipos();
+    public VentanaEquiposControlador() {
+
+        this.ventanaEquipos = new VentanaEquipos();
     }
 
-    public void iniciar(IniciadorSportyfyCore iniciador) {
-        this.ventanaEquipos.inicializar(iniciador);
-        this.ventanaEquipos.llenarCombos((ArrayList<Equipo>) iniciador.getEquipos());
+    public void iniciar(SportyfyCore sportyfyCore) {
+        ArrayList<Equipo> equipos = (ArrayList<Equipo>) sportyfyCore.getEquipos();
+
+        this.ventanaEquipos.inicializar(sportyfyCore);
+        this.ventanaEquipos.llenarCombos(equipos);
+        this.ventanaEquipos.iniciarVentanaPrediccion(sportyfyCore);
+
+
+    }
+
+
+
+
+
+
+    public void mostrarPanel(boolean bool){
+        this.ventanaEquipos.setVisible(bool);
     }
 }
