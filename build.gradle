@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.13.2'
-    implementation 'com.github.juanmanuellosada:sportyfy-core:edad269428'
+    implementation 'com.github.juanmanuellosada:sportyfy-core:f00e8d4e5f'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }

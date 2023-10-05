@@ -1,11 +1,9 @@
 package sportyfy.ui;
+
 import sportyfy.core.Pronostico;
 import sportyfy.core.modelo.SportyfyCore;
-
-import java.awt.*;
-import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
+import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,12 +16,10 @@ public class VentanaResultado extends JFrame implements Observer {
     public void inicializar() {
         inicializarFrame();
         inicializarComponentes();
-
-
     }
 
     private void inicializarComponentes() {
-        JLabel msjGanadorEs = new JLabel("Según Sportyfy el equipo ganador será");
+        JLabel msjGanadorEs = new JLabel("Según Sportyfy");
         msjGanadorEs.setHorizontalAlignment(SwingConstants.CENTER);
         msjGanadorEs.setForeground(new Color(0, 0, 64));
         msjGanadorEs.setFont(new Font("Encode Sans", Font.PLAIN, 15));
@@ -33,7 +29,7 @@ public class VentanaResultado extends JFrame implements Observer {
         etiquetaEquipoGanador = new JLabel();
         etiquetaEquipoGanador.setHorizontalAlignment(SwingConstants.CENTER);
         etiquetaEquipoGanador.setForeground(new Color(0, 0, 64));
-        etiquetaEquipoGanador.setFont(new Font("Encode Sans", Font.BOLD, 15));
+        etiquetaEquipoGanador.setFont(new Font("Encode Sans", Font.PLAIN, 15));
         etiquetaEquipoGanador.setBounds(10, 72, 328, 23);
         frame.getContentPane().add(etiquetaEquipoGanador);
 
@@ -65,19 +61,17 @@ public class VentanaResultado extends JFrame implements Observer {
         frame.setVisible(true);
     }
 
-    public void mensajeGanador(Pronostico pronostico){
-        if(pronostico.getEquipoGanador()==null){
-            etiquetaEquipoGanador.setText("No hay Pronóstico a favor de un equipo, se prevee un Empate");
+    public void mostrarGanador(String ganador){
+        if(ganador == null){
+            etiquetaEquipoGanador.setText("no hay pronóstico a favor de ningún equipo, se prevee un empate");
         }
         else{
-            String ganador = pronostico.getEquipoGanador().getNombre();
-            etiquetaEquipoGanador.setText("El equipo ganador sera : " + ganador);
+            etiquetaEquipoGanador.setText("el equipo ganador será " + ganador);
 
             JLabel img = new JLabel(" ");
             ImageIcon image = new ImageIcon(ganador.toLowerCase()+".png");
-            System.out.println(ganador.toLowerCase());
             image = new ImageIcon(image.getImage().getScaledInstance(137, 135, Image.SCALE_DEFAULT));
-            frame.getContentPane().add(img); //
+            frame.getContentPane().add(img);
 
             //Propiedades de la etiqueta
             img.setIcon(image);
@@ -87,15 +81,12 @@ public class VentanaResultado extends JFrame implements Observer {
         }
     }
 
-
-
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof SportyfyCore) {
             SportyfyCore sportyfyCore = (SportyfyCore) o;
             Pronostico pronosticoActual = sportyfyCore.getPronosticoActual();
-            //mostrarPronostico(pronosticoActual);
-
+            mostrarGanador(pronosticoActual.getEquipoGanador().getNombre());
         }
     }
 }

@@ -1,7 +1,6 @@
 package controladores;
 
 import sportyfy.core.Pronosticador;
-import sportyfy.core.Pronostico;
 import sportyfy.core.entidades.Equipo;
 import sportyfy.core.modelo.SportyfyCore;
 import sportyfy.ui.VentanaResultado;
@@ -12,11 +11,9 @@ public class VentanaResultadoControlador {
     private SportyfyCore iniciador;
     private String local;
     private String visitante;
-    private Equipo equipoLocal;
-    private Equipo equipoVisitante;
 
     public VentanaResultadoControlador(SportyfyCore sportyfyCore, String local, String visitante){
-       this.iniciador=sportyfyCore;
+       this.iniciador = sportyfyCore;
        this.local = local;
        this.visitante = visitante;
        this.ventanaResultado = new VentanaResultado();
@@ -24,13 +21,10 @@ public class VentanaResultadoControlador {
 
     public void iniciar(SportyfyCore sportyfyCore) {
         this.ventanaResultado.inicializar();
-//        Pronosticador pronosticador = iniciador.getBuscadorPronosticadores().getPronosticadores().iterator().next();
-//        Pronostico pronostico = pronosticador.pronosticar(buscarEquipo(local),buscarEquipo(visitante),iniciador.getPartidos());
+        sportyfyCore.addObserver(this.ventanaResultado);
 
         Pronosticador pronosticador = sportyfyCore.getBuscadorPronosticadores().getPronosticadores().iterator().next();
         sportyfyCore.pronosticar(buscarEquipo(local),buscarEquipo(visitante),iniciador.getPartidos(), pronosticador.getClass().getSimpleName());
-        Pronostico pronostico = sportyfyCore.getPronosticoActual();
-        this.ventanaResultado.mensajeGanador(pronostico);
     }
 
     public Equipo buscarEquipo(String nombre){
@@ -40,7 +34,4 @@ public class VentanaResultadoControlador {
         }
         return null;
     }
-
-
-
 }

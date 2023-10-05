@@ -2,6 +2,7 @@ package main;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import controladores.VentanaInicialControlador;
 import sportyfy.core.iniciador.IniciadorSportyfyCore;
@@ -14,10 +15,12 @@ public class Main {
                 IniciadorSportyfyCore iniciador = new IniciadorSportyfyCore();
                 try {
                     SportyfyCore sportyfyCore = iniciador.iniciar("datosFutbol/equipos/equipos.json", "datosFutbol/ultimos_resultados/", "src/pronosticadores");
+
                     VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
                     ventanaInicialControlador.iniciar(sportyfyCore);
                 } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
-                         InstantiationException | NoSuchMethodException | FileNotFoundException e) {
+                         InstantiationException | NoSuchMethodException | FileNotFoundException |
+                         UnsupportedEncodingException e ) {
                     e.printStackTrace();
                 }
             }
