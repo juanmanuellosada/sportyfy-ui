@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import controladores.VentanaInicialControlador;
 import sportyfy.core.iniciador.IniciadorSportyfyCore;
-import sportyfy.core.modelo.SportyfyCore;
+import sportyfy.core.core.SportyfyCore;
 
 public class Main {
     public static void main(String[] args)  throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {

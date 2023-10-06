@@ -3,7 +3,7 @@ package controladores;
 import sportyfy.core.Pronosticador;
 import sportyfy.core.Pronostico;
 import sportyfy.core.entidades.Equipo;
-import sportyfy.core.modelo.SportyfyCore;
+import sportyfy.core.core.SportyfyCore;
 import sportyfy.ui.VentanaResultado;
 import java.util.List;
 

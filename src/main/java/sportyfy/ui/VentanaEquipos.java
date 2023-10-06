@@ -2,7 +2,7 @@ package sportyfy.ui;
 import controladores.VentanaResultadoControlador;
 import lombok.Getter;
 import sportyfy.core.entidades.Equipo;
-import sportyfy.core.modelo.SportyfyCore;
+import sportyfy.core.core.SportyfyCore;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;

@@ -2,7 +2,7 @@ package sportyfy.ui;
 import controladores.VentanaEquiposControlador;
 import sportyfy.core.BuscadorPronosticadores;
 import sportyfy.core.Pronosticador;
-import sportyfy.core.modelo.SportyfyCore;
+import sportyfy.core.core.SportyfyCore;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;

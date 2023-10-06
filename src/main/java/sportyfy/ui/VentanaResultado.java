@@ -1,6 +1,6 @@
 package sportyfy.ui;
 import sportyfy.core.Pronostico;
-import sportyfy.core.modelo.SportyfyCore;
+import sportyfy.core.core.SportyfyCore;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
