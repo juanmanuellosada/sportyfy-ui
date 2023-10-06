@@ -1,29 +1,29 @@
 package sportyfy.ui;
+
+import lombok.Getter;
 import sportyfy.core.Pronostico;
 import sportyfy.core.core.SportyfyCore;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 public class VentanaResultado extends JFrame implements Observer {
     private JFrame frame;
     private JLabel etiquetaEquipoGanador;
+    @Getter
+    private JButton botonNuevaPrediccion;
 
     public VentanaResultado() {
     }
     public void inicializar() {
         inicializarFrame();
         inicializarComponentes();
-
-
     }
 
     private void inicializarComponentes() {
-        JLabel msjGanadorEs = new JLabel("Según Sportyfy el equipo ganador será");
+        JLabel msjGanadorEs = new JLabel("Según Sportyfy");
         msjGanadorEs.setHorizontalAlignment(SwingConstants.CENTER);
         msjGanadorEs.setForeground(new Color(0, 0, 64));
         msjGanadorEs.setFont(new Font("Encode Sans", Font.PLAIN, 15));
@@ -33,28 +33,21 @@ public class VentanaResultado extends JFrame implements Observer {
         etiquetaEquipoGanador = new JLabel();
         etiquetaEquipoGanador.setHorizontalAlignment(SwingConstants.CENTER);
         etiquetaEquipoGanador.setForeground(new Color(0, 0, 64));
-        etiquetaEquipoGanador.setFont(new Font("Encode Sans", Font.BOLD, 15));
+        etiquetaEquipoGanador.setFont(new Font("Encode Sans", Font.PLAIN, 15));
         etiquetaEquipoGanador.setBounds(10, 72, 328, 23);
         frame.getContentPane().add(etiquetaEquipoGanador);
 
-        /**
-         JButton botonNuevaPrediccion = new JButton("Nueva prediccion");
-         botonNuevaPrediccion.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-         botonNuevaPrediccion.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
-         frame.setVisible(false);
-         System.exit(0);
 
-         }
-         });
+         botonNuevaPrediccion = new JButton("Nueva prediccion");
+         botonNuevaPrediccion.setFont(new Font("Encode Sans", Font.PLAIN, 15));
          botonNuevaPrediccion.setBounds(94, 272, 157, 39);
          frame.getContentPane().add(botonNuevaPrediccion);
-         */
+
     }
 
     private void inicializarFrame() {
         frame = new JFrame();
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo-pelota.png"));
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/logo-pelota.png"));
         frame.setTitle("Sportyfy");
         frame.setResizable(false);
         frame.getContentPane().setBackground(Color.WHITE);
@@ -65,37 +58,36 @@ public class VentanaResultado extends JFrame implements Observer {
         frame.setVisible(true);
     }
 
-    public void mensajeGanador(Pronostico pronostico){
-        if(pronostico.getEquipoGanador()==null){
-            etiquetaEquipoGanador.setText("No hay Pronóstico a favor de un equipo, se prevee un Empate");
+    public void mostrarGanador(String ganador){
+        if(ganador == null){
+            etiquetaEquipoGanador.setText("no hay pronóstico a favor de ningún equipo, se prevee un empate");
         }
         else{
-            String ganador = pronostico.getEquipoGanador().getNombre();
-            etiquetaEquipoGanador.setText("El equipo ganador sera : " + ganador);
+            etiquetaEquipoGanador.setText("el equipo ganador será " + ganador);
 
             JLabel img = new JLabel(" ");
-            ImageIcon image = new ImageIcon(ganador.toLowerCase()+".png");
-            System.out.println(ganador.toLowerCase());
+            ImageIcon image = new ImageIcon("src/recursos/logo-equipos/"+ganador.toLowerCase()+".png");
             image = new ImageIcon(image.getImage().getScaledInstance(137, 135, Image.SCALE_DEFAULT));
-            frame.getContentPane().add(img); //
+            frame.getContentPane().add(img);
 
             //Propiedades de la etiqueta
             img.setIcon(image);
             img.setSize(137,135);
-            img.setLocation(111,135);
+            img.setLocation(104,116);
             img.setVisible(true);
         }
     }
 
-
+    public void mostrar(Boolean bool){
+        frame.setVisible(bool);
+    }
 
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof SportyfyCore) {
             SportyfyCore sportyfyCore = (SportyfyCore) o;
             Pronostico pronosticoActual = sportyfyCore.getPronosticoActual();
-            //mostrarPronostico(pronosticoActual);
-
+            mostrarGanador(pronosticoActual.getEquipoGanador().getNombre());
         }
     }
 }

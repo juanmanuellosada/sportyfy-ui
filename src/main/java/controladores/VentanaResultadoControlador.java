@@ -1,10 +1,15 @@
 package controladores;
 
 import sportyfy.core.Pronosticador;
-import sportyfy.core.Pronostico;
 import sportyfy.core.entidades.Equipo;
 import sportyfy.core.core.SportyfyCore;
 import sportyfy.ui.VentanaResultado;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class VentanaResultadoControlador {
@@ -12,11 +17,9 @@ public class VentanaResultadoControlador {
     private SportyfyCore iniciador;
     private String local;
     private String visitante;
-    private Equipo equipoLocal;
-    private Equipo equipoVisitante;
 
     public VentanaResultadoControlador(SportyfyCore sportyfyCore, String local, String visitante){
-       this.iniciador=sportyfyCore;
+       this.iniciador = sportyfyCore;
        this.local = local;
        this.visitante = visitante;
        this.ventanaResultado = new VentanaResultado();
@@ -24,13 +27,11 @@ public class VentanaResultadoControlador {
 
     public void iniciar(SportyfyCore sportyfyCore) {
         this.ventanaResultado.inicializar();
-//        Pronosticador pronosticador = iniciador.getBuscadorPronosticadores().getPronosticadores().iterator().next();
-//        Pronostico pronostico = pronosticador.pronosticar(buscarEquipo(local),buscarEquipo(visitante),iniciador.getPartidos());
+        sportyfyCore.addObserver(this.ventanaResultado);
 
         Pronosticador pronosticador = sportyfyCore.getBuscadorPronosticadores().getPronosticadores().iterator().next();
         sportyfyCore.pronosticar(buscarEquipo(local),buscarEquipo(visitante),iniciador.getPartidos(), pronosticador.getClass().getSimpleName());
-        Pronostico pronostico = sportyfyCore.getPronosticoActual();
-        this.ventanaResultado.mensajeGanador(pronostico);
+        nuevaPrediccion(sportyfyCore);
     }
 
     public Equipo buscarEquipo(String nombre){
@@ -41,6 +42,21 @@ public class VentanaResultadoControlador {
         return null;
     }
 
-
-
+    private void nuevaPrediccion(SportyfyCore sportyfyCore) {
+        this.ventanaResultado.getBotonNuevaPrediccion().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                ventanaResultado.mostrar(false);
+                System.out.println("nueva predic");
+                VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
+                try {
+                    ventanaInicialControlador.iniciar(sportyfyCore);
+                }
+                catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
+                       InstantiationException | NoSuchMethodException | FileNotFoundException |
+                       UnsupportedEncodingException exception ) {
+                    exception.printStackTrace();
+                }
+            }
+        });
+    }
 }

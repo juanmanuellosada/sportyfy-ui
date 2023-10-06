@@ -1,10 +1,15 @@
 package controladores;
 
+
 import sportyfy.core.iniciador.IniciadorSportyfyCore;
 import sportyfy.core.core.SportyfyCore;
+import java.util.Set;
 import sportyfy.ui.VentanaInicial;
-
+import java.awt.event.ActionEvent;
+import sportyfy.core.Pronosticador;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 
 public class VentanaInicialControlador {
@@ -14,9 +19,23 @@ public class VentanaInicialControlador {
        this.ventanaInicial = new VentanaInicial();
     }
 
-    public void iniciar(SportyfyCore spc) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException, FileNotFoundException {
-        this.ventanaInicial.inicializar(spc);
-        this.ventanaInicial.llenarCombo(spc.getBuscadorPronosticadores());
-        this.ventanaInicial.iniciarPanelEquipos(spc);
+    public void iniciar(SportyfyCore sportyfyCore) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException, FileNotFoundException, UnsupportedEncodingException {
+        this.ventanaInicial.inicializar();
+        this.ventanaInicial.llenarCombo(obtenerPronosticadores(sportyfyCore));
+        inicializarPanelEquipos(sportyfyCore);
+    }
+
+    private void inicializarPanelEquipos(SportyfyCore sportyfyCore) {
+        this.ventanaInicial.getBotonContinuar().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ventanaInicial.mostrar(false);
+                VentanaEquiposControlador ventanaEquiposController = new VentanaEquiposControlador();
+                ventanaEquiposController.iniciar(sportyfyCore);
+            }
+        });
+    }
+
+    public Set<Pronosticador> obtenerPronosticadores (SportyfyCore spc) throws FileNotFoundException {
+        return spc.getBuscadorPronosticadores().buscarPronosticadores("src/pronosticadores");
     }
 }

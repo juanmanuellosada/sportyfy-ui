@@ -1,42 +1,38 @@
 package sportyfy.ui;
-import controladores.VentanaEquiposControlador;
-import sportyfy.core.BuscadorPronosticadores;
+
+import lombok.Getter;
 import sportyfy.core.Pronosticador;
 import sportyfy.core.core.SportyfyCore;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Set;
+import sportyfy.core.Pronostico;
 import javax.swing.*;
+import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Set;
 
-public class VentanaInicial extends JFrame {
+public class VentanaInicial extends JFrame {//implements Observer {
     private JFrame frame;
+    @Getter
     private JButton botonContinuar;
-    JComboBox<String> comboDeportes;
- private String[] deporteSeleccionado ={""};
+    private JComboBox<String> comboDeportes;
 
     public VentanaInicial()  {
 
     }
      // Initialize the contents of the frame.
-    public void inicializar(SportyfyCore sportyfyCore) {
+    public void inicializar(){
         inicializarFrame();
         inicializarComponentes();
     }
 
-    private void inicializarComponentes() {
+    private void inicializarComponentes(){
         JLabel msjBienvenido = new JLabel("Bienvenido a");
         msjBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
         msjBienvenido.setForeground(new Color(0, 0, 64));
         msjBienvenido.setFont(new Font("Encode Sans", Font.BOLD, 18));
         msjBienvenido.setBounds(10, 28, 328, 23);
         frame.getContentPane().add(msjBienvenido);
+
 
         JLabel msjInicio = new JLabel("<html><body>¡Sportyfy te brindará un pronóstico</body></html>");
         msjInicio.setHorizontalAlignment(SwingConstants.CENTER);
@@ -70,7 +66,7 @@ public class VentanaInicial extends JFrame {
         frame.getContentPane().add(botonContinuar);
 
         JLabel img = new JLabel(" ");
-        ImageIcon image = new ImageIcon("logo-sportyfy.png");
+        ImageIcon image = new ImageIcon("src/recursos/logo-sportyfy.png");
         image = new ImageIcon(image.getImage().getScaledInstance(227, 49, Image.SCALE_DEFAULT));
         frame.getContentPane().add(img); //
 
@@ -83,7 +79,7 @@ public class VentanaInicial extends JFrame {
 
     private void inicializarFrame() {
         frame = new JFrame();
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo-pelota.png"));
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/logo-pelota.png"));
         frame.setTitle("Sportyfy");
         frame.setResizable(false);
         frame.getContentPane().setBackground(Color.WHITE);
@@ -94,23 +90,22 @@ public class VentanaInicial extends JFrame {
         frame.setVisible(true);
     }
 
-    public void iniciarPanelEquipos(SportyfyCore sportyfyCore) {
-        botonContinuar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deporteSeleccionado[0] = comboDeportes.getSelectedItem().toString();
-                frame.setVisible(false);
-                VentanaEquiposControlador ventanaEquiposController = new VentanaEquiposControlador();
-                ventanaEquiposController.iniciar(sportyfyCore);
-
-                System.out.println(deporteSeleccionado[0]);
-            }
-        });
-    }
-
-    public void llenarCombo(BuscadorPronosticadores buscadorPronosticadores) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException, FileNotFoundException {
-        Set<Pronosticador> pronosticadores = buscadorPronosticadores.buscarPronosticadores("src/pronosticadores");
-        for (Pronosticador p : pronosticadores){
+    public void llenarCombo(Set<Pronosticador> pronosticadores){
+        for (Pronosticador p : pronosticadores)
             comboDeportes.addItem(p.obtenerDeporte());
-        }
     }
+
+    public void mostrar(Boolean bool){
+        frame.setVisible(bool);
+    }
+
+//    @Override
+//    public void update(Observable o, Object arg) {
+//        if (o instanceof SportyfyCore) {
+//            SportyfyCore sportyfyCore = (SportyfyCore) o;
+//            System.out.println(sportyfyCore.getBuscadorPronosticadores().getPronosticadores().getClass().getSimpleName());
+//            llenarCombo(sportyfyCore.getBuscadorPronosticadores().getPronosticadores());
+//        }
+//    }
+
 }
