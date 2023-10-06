@@ -26,7 +26,7 @@ public class VentanaEquipos extends JFrame {
 
     private void inicializarFrame() {
         frame = new JFrame();
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo-pelota.png"));
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/logo-pelota.png"));
         frame.setTitle("Sportyfy");
         frame.setResizable(false);
         frame.getContentPane().setBackground(Color.WHITE);
@@ -68,7 +68,7 @@ public class VentanaEquipos extends JFrame {
         frame.getContentPane().add(comboEquipoB);
 
         JLabel img = new JLabel(" ");
-        ImageIcon image = new ImageIcon("pelota-futbol.png");
+        ImageIcon image = new ImageIcon("src/recursos/pelota-futbol.png");
         image = new ImageIcon(image.getImage().getScaledInstance(137, 135, Image.SCALE_DEFAULT));
         frame.getContentPane().add(img);
 

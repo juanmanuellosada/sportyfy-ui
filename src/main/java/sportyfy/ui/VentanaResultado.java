@@ -1,15 +1,20 @@
 package sportyfy.ui;
 
+import lombok.Getter;
 import sportyfy.core.Pronostico;
 import sportyfy.core.modelo.SportyfyCore;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
 public class VentanaResultado extends JFrame implements Observer {
     private JFrame frame;
     private JLabel etiquetaEquipoGanador;
+    @Getter
+    private JButton botonNuevaPrediccion;
 
     public VentanaResultado() {
     }
@@ -33,24 +38,17 @@ public class VentanaResultado extends JFrame implements Observer {
         etiquetaEquipoGanador.setBounds(10, 72, 328, 23);
         frame.getContentPane().add(etiquetaEquipoGanador);
 
-        /**
-         JButton botonNuevaPrediccion = new JButton("Nueva prediccion");
-         botonNuevaPrediccion.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-         botonNuevaPrediccion.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
-         frame.setVisible(false);
-         System.exit(0);
 
-         }
-         });
+         botonNuevaPrediccion = new JButton("Nueva prediccion");
+         botonNuevaPrediccion.setFont(new Font("Encode Sans", Font.PLAIN, 15));
          botonNuevaPrediccion.setBounds(94, 272, 157, 39);
          frame.getContentPane().add(botonNuevaPrediccion);
-         */
+
     }
 
     private void inicializarFrame() {
         frame = new JFrame();
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo-pelota.png"));
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/logo-pelota.png"));
         frame.setTitle("Sportyfy");
         frame.setResizable(false);
         frame.getContentPane().setBackground(Color.WHITE);
@@ -69,16 +67,20 @@ public class VentanaResultado extends JFrame implements Observer {
             etiquetaEquipoGanador.setText("el equipo ganador será " + ganador);
 
             JLabel img = new JLabel(" ");
-            ImageIcon image = new ImageIcon(ganador.toLowerCase()+".png");
+            ImageIcon image = new ImageIcon("src/recursos/logo-equipos/"+ganador.toLowerCase()+".png");
             image = new ImageIcon(image.getImage().getScaledInstance(137, 135, Image.SCALE_DEFAULT));
             frame.getContentPane().add(img);
 
             //Propiedades de la etiqueta
             img.setIcon(image);
             img.setSize(137,135);
-            img.setLocation(111,135);
+            img.setLocation(104,116);
             img.setVisible(true);
         }
+    }
+
+    public void mostrar(Boolean bool){
+        frame.setVisible(bool);
     }
 
     @Override

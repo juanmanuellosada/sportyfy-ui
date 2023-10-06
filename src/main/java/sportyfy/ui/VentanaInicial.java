@@ -2,11 +2,16 @@ package sportyfy.ui;
 
 import lombok.Getter;
 import sportyfy.core.Pronosticador;
+import sportyfy.core.Pronostico;
+import sportyfy.core.modelo.SportyfyCore;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
-public class VentanaInicial extends JFrame {
+public class VentanaInicial extends JFrame {//implements Observer {
     private JFrame frame;
     @Getter
     private JButton botonContinuar;
@@ -62,7 +67,7 @@ public class VentanaInicial extends JFrame {
         frame.getContentPane().add(botonContinuar);
 
         JLabel img = new JLabel(" ");
-        ImageIcon image = new ImageIcon("logo-sportyfy.png");
+        ImageIcon image = new ImageIcon("src/recursos/logo-sportyfy.png");
         image = new ImageIcon(image.getImage().getScaledInstance(227, 49, Image.SCALE_DEFAULT));
         frame.getContentPane().add(img); //
 
@@ -75,7 +80,7 @@ public class VentanaInicial extends JFrame {
 
     private void inicializarFrame() {
         frame = new JFrame();
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo-pelota.png"));
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/logo-pelota.png"));
         frame.setTitle("Sportyfy");
         frame.setResizable(false);
         frame.getContentPane().setBackground(Color.WHITE);
@@ -94,5 +99,14 @@ public class VentanaInicial extends JFrame {
     public void mostrar(Boolean bool){
         frame.setVisible(bool);
     }
+
+//    @Override
+//    public void update(Observable o, Object arg) {
+//        if (o instanceof SportyfyCore) {
+//            SportyfyCore sportyfyCore = (SportyfyCore) o;
+//            System.out.println(sportyfyCore.getBuscadorPronosticadores().getPronosticadores().getClass().getSimpleName());
+//            llenarCombo(sportyfyCore.getBuscadorPronosticadores().getPronosticadores());
+//        }
+//    }
 
 }
