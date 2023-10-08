@@ -10,6 +10,7 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+@SuppressWarnings("deprecation")
 public class VentanaResultado extends JFrame implements Observer {
     private JFrame frame;
     private JLabel msjGanadorEs;
@@ -47,7 +48,7 @@ public class VentanaResultado extends JFrame implements Observer {
 
         botonNuevaPrediccion = new JButtonRedondeado("Nueva predicción");
         botonNuevaPrediccion.setFont(new Font("Calibri Light", Font.PLAIN, 15));
-        botonNuevaPrediccion.setBounds(94, 272, 157, 39);
+        botonNuevaPrediccion.setBounds(94, 272, 165, 39);
         botonNuevaPrediccion.setBorderPainted(false);
         frame.getContentPane().add(botonNuevaPrediccion);
     }

@@ -31,7 +31,7 @@ public class VentanaEquiposControlador {
                 equipoSeleccionadoA = (String) ventanaEquipos.getComboEquipoA().getSelectedItem();
                 equipoSeleccionadoB = (String) ventanaEquipos.getComboEquipoB().getSelectedItem();
 
-                if(equipoSeleccionadoA == equipoSeleccionadoB){
+                if(equipoSeleccionadoA != null && equipoSeleccionadoA.equals(equipoSeleccionadoB)){
                     JOptionPane.showMessageDialog(null, "Debes seleccionar dos equipos distintos!");
                 }
                 else{

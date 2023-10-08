@@ -10,12 +10,13 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class VentanaResultadoControlador {
     VentanaResultado ventanaResultado;
-    private SportyfyCore iniciador;
-    private String local;
-    private String visitante;
+    private final SportyfyCore iniciador;
+    private final String local;
+    private final String visitante;
 
     public VentanaResultadoControlador(SportyfyCore sportyfyCore, String local, String visitante){
        this.iniciador = sportyfyCore;
@@ -51,8 +52,9 @@ public class VentanaResultadoControlador {
                 }
                 catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
                        InstantiationException | NoSuchMethodException | FileNotFoundException |
-                       UnsupportedEncodingException exception ) {
-                    exception.printStackTrace();
+                       UnsupportedEncodingException exception) {
+                    Logger logger = Logger.getLogger("VentanaResultadoControlador");
+                    logger.severe(exception.getMessage());
                 }
             }
         });

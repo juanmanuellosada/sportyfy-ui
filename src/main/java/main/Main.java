@@ -3,6 +3,8 @@ package main;
 import javax.swing.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Logger;
+
 import controladores.VentanaInicialControlador;
 import sportyfy.core.core.SportyfyCore;
 import sportyfy.core.iniciadores.IniciadorSportyfyCore;
@@ -22,7 +24,8 @@ public class Main {
                 }
                 catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
                          InstantiationException | NoSuchMethodException | IOException e ) {
-                    e.printStackTrace();
+                    Logger logger = Logger.getLogger("Main");
+                    logger.severe(e.getMessage());
                 }
             }
         });
