@@ -1,25 +1,27 @@
 package main;
 
-import controladores.VentanaInicialControlador;
-
 import javax.swing.*;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-
-import sportyfy.core.*;
+import controladores.VentanaInicialControlador;
+import sportyfy.core.core.SportyfyCore;
+import sportyfy.core.iniciadores.IniciadorSportyfyCore;
 
 public class Main {
-
-
-    public static void main(String[] args)  throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                IniciadorSportyfyCore iniciador = new IniciadorSportyfyCore();
+                IniciadorSportyfyCore iniciador;
                 try {
-                    iniciador.iniciar("datosFutbol/equipos/equipos.json", "datosFutbol/ultimos_resultados/", "src/pronosticadores");
+                    iniciador = new IniciadorSportyfyCore();
+
+                    SportyfyCore sportyfyCore = iniciador.iniciar("src/pronosticadores");
+
                     VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
-                    ventanaInicialControlador.iniciar(iniciador);
-                } catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
-                         InstantiationException | NoSuchMethodException e) {
+                    ventanaInicialControlador.iniciar(sportyfyCore);
+                }
+                catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
+                         InstantiationException | NoSuchMethodException | IOException e ) {
                     e.printStackTrace();
                 }
             }

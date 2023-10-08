@@ -1,126 +1,88 @@
 package sportyfy.ui;
-import controladores.VentanaEquiposControlador;
-import sportyfy.core.BuscadorPronosticadores;
-import sportyfy.core.IniciadorSportyfyCore;
+
+import lombok.Getter;
 import sportyfy.core.Pronosticador;
-import sportyfy.core.futbol.Equipo;
-
-import java.awt.*;
-import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionEvent;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Set;
+import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
+import java.awt.*;
 
-public class VentanaInicial  {
+public class VentanaInicial extends JFrame {
     private JFrame frame;
+    @Getter
     private JButton botonContinuar;
-    JComboBox<String> comboDeportes;
- private String[] deporteSeleccionado ={""};
+    private JComboBox<String> comboDeportes;
 
-    //Create the application.
     public VentanaInicial()  {
+
     }
-
-     // Initialize the contents of the frame.
-    public void inicializar(IniciadorSportyfyCore iniciador) {
-
+    public void inicializar(){
+        inicializarFrame();
+        inicializarComponentes();
+    }
+    private void inicializarFrame() {
         frame = new JFrame();
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("logo-pelota.png"));
-
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/logo-pelota.png"));
         frame.setTitle("Sportyfy");
         frame.setResizable(false);
-        frame.getContentPane().setBackground(Color.WHITE);
+        frame.getContentPane().setBackground(new Color(32, 12, 61));
         frame.setBounds(100, 100, 362, 376);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
 
-        JLabel etiquetaBienvenido = new JLabel("Bienvenido a");
-        etiquetaBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
-        etiquetaBienvenido.setForeground(new Color(0, 0, 64));
-        etiquetaBienvenido.setFont(new Font("Encode Sans", Font.BOLD, 18));
-        etiquetaBienvenido.setBounds(10, 28, 328, 23);
-        frame.getContentPane().add(etiquetaBienvenido);
+    private void inicializarComponentes(){
+        JLabel msjBienvenido = new JLabel("Bienvenido a");
+        msjBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
+        msjBienvenido.setForeground(Color.WHITE);
+        msjBienvenido.setFont(new Font("Calibri Light", Font.BOLD, 18));
+        msjBienvenido.setBounds(10, 28, 328, 23);
+        frame.getContentPane().add(msjBienvenido);
 
-        JLabel etiquetaMsjInicio = new JLabel("<html><body>¡Sportyfy te brindará un pronóstico</body></html>");
-        etiquetaMsjInicio.setHorizontalAlignment(SwingConstants.CENTER);
-        etiquetaMsjInicio.setForeground(new Color(0, 0, 64));
-        etiquetaMsjInicio.setFont(new Font("Encode Sans", Font.PLAIN, 13));
-        etiquetaMsjInicio.setBounds(10, 116, 328, 23);
-        frame.getContentPane().add(etiquetaMsjInicio);
+        JLabel msjInicio = new JLabel("<html><center>¡Sportyfy te brindará un pronóstico<br>sobre el resultado de un partido!</center></html>");
+        msjInicio.setHorizontalAlignment(SwingConstants.CENTER);
+        msjInicio.setForeground(Color.WHITE);
+        msjInicio.setFont(new Font("Calibri Light", Font.PLAIN, 13));
+        msjInicio.setBounds(10, 116, 328, 30);
+        frame.getContentPane().add(msjInicio);
 
-        JLabel etiquetaMsjFin = new JLabel("<html><body>sobre el resultado de un partido!</body></html>");
-        etiquetaMsjFin.setFont(new Font("Encode Sans", Font.PLAIN, 13));
-        etiquetaMsjFin.setHorizontalAlignment(SwingConstants.CENTER);
-        etiquetaMsjFin.setForeground(new Color(0, 0, 64));
-        etiquetaMsjFin.setBounds(10, 141, 328, 23);
-        frame.getContentPane().add(etiquetaMsjFin);
+        JLabel msjSeleccione = new JLabel("Seleccione el deporte:");
+        msjSeleccione.setHorizontalAlignment(SwingConstants.CENTER);
+        msjSeleccione.setForeground(new Color(169, 254, 88));
+        msjSeleccione.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+        msjSeleccione.setBounds(10, 192, 328, 23);
+        frame.getContentPane().add(msjSeleccione);
 
-        JLabel etiquetaSeleccion = new JLabel("Seleccione el deporte:");
-        etiquetaSeleccion.setHorizontalAlignment(SwingConstants.CENTER);
-        etiquetaSeleccion.setForeground(new Color(0, 208, 0));
-        etiquetaSeleccion.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        etiquetaSeleccion.setBounds(10, 192, 328, 23);
-        frame.getContentPane().add(etiquetaSeleccion);
-
-        comboDeportes = new JComboBox<String>();
-        comboDeportes.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        comboDeportes.setBounds(109, 223, 128, 28);
+        comboDeportes = new JComboBox<>();
+        comboDeportes.setPreferredSize(new Dimension(150,30));
+        comboDeportes.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+        comboDeportes.setBounds(109, 223, 128, 25);
         frame.getContentPane().add(comboDeportes);
 
-        botonContinuar = new JButton("Continuar");
-        botonContinuar.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        botonContinuar.setBounds(104, 262, 139, 39);
-        frame.getContentPane().add(botonContinuar);frame.getContentPane().add(botonContinuar);
-        botonContinuar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                deporteSeleccionado[0] = comboDeportes.getSelectedItem().toString();
-                frame.setVisible(false);
-                VentanaEquiposControlador ventanaEquiposController = new VentanaEquiposControlador();
-                ventanaEquiposController.iniciar(iniciador);
-                //VentanaEquipos ventanaEquipos = new VentanaEquipos();
-                //ventanaEquipos.inicializar(iniciador);
-                System.out.println(deporteSeleccionado[0]);
+        botonContinuar = new JButtonRedondeado("Continuar");
+        botonContinuar.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+        botonContinuar.setBounds(111, 275, 125, 39);
+        botonContinuar.setBorderPainted(false);
+        frame.getContentPane().add(botonContinuar);
 
-            }
-        });
+        agregarImagen("src/recursos/logo-sportyfy.png");
+    }
 
-        JLabel img = new JLabel(" ");
-        ImageIcon image = new ImageIcon("logo-sportyfy.png");
-        image = new ImageIcon(image.getImage().getScaledInstance(227, 49, Image.SCALE_DEFAULT));
-        frame.getContentPane().add(img); //
-
-        //Propiedades de la etiqueta
+    private void agregarImagen(String ruta) {
+        JLabel img = new JLabel();
+        ImageIcon image = new ImageIcon(ruta);
+        image = new ImageIcon(image.getImage().getScaledInstance(227,49, Image.SCALE_SMOOTH));
         img.setIcon(image);
-        img.setSize(227,49);
-        img.setLocation(59,54);
-        img.setVisible(true);
-        frame.setVisible(true);
-
+        img.setBounds(59,54,227,49);
+        frame.getContentPane().add(img);
     }
 
-
-
-    public JFrame getFrame(){
-        return frame;
-    }
-
-    public String getDeporteSeleccionado(){
-        return deporteSeleccionado[0];
-    }
-
-
-    public void llenarCombo(BuscadorPronosticadores buscadorPronosticadores) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
-        Set<Pronosticador> pronosticadores = buscadorPronosticadores.buscarPronosticadores("src/pronosticadores");
-        for (Pronosticador p : pronosticadores){
+    public void llenarCombo(Pronosticador p){
             comboDeportes.addItem(p.obtenerDeporte());
-        }
+    }
+
+    public void mostrar(Boolean bool){
+        frame.setVisible(bool);
     }
 }
