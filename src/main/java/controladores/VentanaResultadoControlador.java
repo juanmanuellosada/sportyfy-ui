@@ -1,10 +1,9 @@
 package controladores;
 
-import sportyfy.core.Pronosticador;
-import sportyfy.core.entidades.Equipo;
-import sportyfy.core.modelo.SportyfyCore;
+import sportyfy.core.core.SportyfyCore;
+import sportyfy.core.entidades.equipo.Equipo;
+import sportyfy.core.entidades.partido.PartidoFuturo;
 import sportyfy.ui.VentanaResultado;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -29,8 +28,8 @@ public class VentanaResultadoControlador {
         this.ventanaResultado.inicializar();
         sportyfyCore.addObserver(this.ventanaResultado);
 
-        Pronosticador pronosticador = sportyfyCore.getBuscadorPronosticadores().getPronosticadores().iterator().next();
-        sportyfyCore.pronosticar(buscarEquipo(local),buscarEquipo(visitante),iniciador.getPartidos(), pronosticador.getClass().getSimpleName());
+        PartidoFuturo partidoFuturo = new PartidoFuturo(buscarEquipo(local),buscarEquipo(visitante));
+        sportyfyCore.pronosticar(partidoFuturo,iniciador.getPartidosJugados());
         nuevaPrediccion(sportyfyCore);
     }
 
@@ -46,7 +45,6 @@ public class VentanaResultadoControlador {
         this.ventanaResultado.getBotonNuevaPrediccion().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 ventanaResultado.mostrar(false);
-                System.out.println("nueva predic");
                 VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
                 try {
                     ventanaInicialControlador.iniciar(sportyfyCore);

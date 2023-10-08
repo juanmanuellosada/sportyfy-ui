@@ -2,16 +2,11 @@ package sportyfy.ui;
 
 import lombok.Getter;
 import sportyfy.core.Pronosticador;
-import sportyfy.core.Pronostico;
-import sportyfy.core.modelo.SportyfyCore;
-
+import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Set;
 
-public class VentanaInicial extends JFrame {//implements Observer {
+public class VentanaInicial extends JFrame {
     private JFrame frame;
     @Getter
     private JButton botonContinuar;
@@ -20,70 +15,16 @@ public class VentanaInicial extends JFrame {//implements Observer {
     public VentanaInicial()  {
 
     }
-     // Initialize the contents of the frame.
     public void inicializar(){
         inicializarFrame();
         inicializarComponentes();
     }
-
-    private void inicializarComponentes(){
-        JLabel msjBienvenido = new JLabel("Bienvenido a");
-        msjBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
-        msjBienvenido.setForeground(new Color(0, 0, 64));
-        msjBienvenido.setFont(new Font("Encode Sans", Font.BOLD, 18));
-        msjBienvenido.setBounds(10, 28, 328, 23);
-        frame.getContentPane().add(msjBienvenido);
-
-
-        JLabel msjInicio = new JLabel("<html><body>¡Sportyfy te brindará un pronóstico</body></html>");
-        msjInicio.setHorizontalAlignment(SwingConstants.CENTER);
-        msjInicio.setForeground(new Color(0, 0, 64));
-        msjInicio.setFont(new Font("Encode Sans", Font.PLAIN, 13));
-        msjInicio.setBounds(10, 116, 328, 23);
-        frame.getContentPane().add(msjInicio);
-
-        JLabel msjFin = new JLabel("<html><body>sobre el resultado de un partido!</body></html>");
-        msjFin.setFont(new Font("Encode Sans", Font.PLAIN, 13));
-        msjFin.setHorizontalAlignment(SwingConstants.CENTER);
-        msjFin.setForeground(new Color(0, 0, 64));
-        msjFin.setBounds(10, 141, 328, 23);
-        frame.getContentPane().add(msjFin);
-
-        JLabel msjSeleccione = new JLabel("Seleccione el deporte:");
-        msjSeleccione.setHorizontalAlignment(SwingConstants.CENTER);
-        msjSeleccione.setForeground(new Color(0, 208, 0));
-        msjSeleccione.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        msjSeleccione.setBounds(10, 192, 328, 23);
-        frame.getContentPane().add(msjSeleccione);
-
-        comboDeportes = new JComboBox<String>();
-        comboDeportes.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        comboDeportes.setBounds(109, 223, 128, 28);
-        frame.getContentPane().add(comboDeportes);
-
-        botonContinuar = new JButton("Continuar");
-        botonContinuar.setFont(new Font("Encode Sans", Font.PLAIN, 15));
-        botonContinuar.setBounds(104, 262, 139, 39);
-        frame.getContentPane().add(botonContinuar);
-
-        JLabel img = new JLabel(" ");
-        ImageIcon image = new ImageIcon("src/recursos/logo-sportyfy.png");
-        image = new ImageIcon(image.getImage().getScaledInstance(227, 49, Image.SCALE_DEFAULT));
-        frame.getContentPane().add(img); //
-
-        //Propiedades de la etiqueta
-        img.setIcon(image);
-        img.setSize(227,49);
-        img.setLocation(59,54);
-        img.setVisible(true);
-    }
-
     private void inicializarFrame() {
         frame = new JFrame();
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/logo-pelota.png"));
         frame.setTitle("Sportyfy");
         frame.setResizable(false);
-        frame.getContentPane().setBackground(Color.WHITE);
+        frame.getContentPane().setBackground(new Color(32, 12, 61));
         frame.setBounds(100, 100, 362, 376);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
@@ -91,22 +32,57 @@ public class VentanaInicial extends JFrame {//implements Observer {
         frame.setVisible(true);
     }
 
-    public void llenarCombo(Set<Pronosticador> pronosticadores){
-        for (Pronosticador p : pronosticadores)
+    private void inicializarComponentes(){
+        JLabel msjBienvenido = new JLabel("Bienvenido a");
+        msjBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
+        msjBienvenido.setForeground(Color.WHITE);
+        msjBienvenido.setFont(new Font("Calibri Light", Font.BOLD, 18));
+        msjBienvenido.setBounds(10, 28, 328, 23);
+        frame.getContentPane().add(msjBienvenido);
+
+        JLabel msjInicio = new JLabel("<html><center>¡Sportyfy te brindará un pronóstico<br>sobre el resultado de un partido!</center></html>");
+        msjInicio.setHorizontalAlignment(SwingConstants.CENTER);
+        msjInicio.setForeground(Color.WHITE);
+        msjInicio.setFont(new Font("Calibri Light", Font.PLAIN, 13));
+        msjInicio.setBounds(10, 116, 328, 30);
+        frame.getContentPane().add(msjInicio);
+
+        JLabel msjSeleccione = new JLabel("Seleccione el deporte:");
+        msjSeleccione.setHorizontalAlignment(SwingConstants.CENTER);
+        msjSeleccione.setForeground(new Color(169, 254, 88));
+        msjSeleccione.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+        msjSeleccione.setBounds(10, 192, 328, 23);
+        frame.getContentPane().add(msjSeleccione);
+
+        comboDeportes = new JComboBox<>();
+        comboDeportes.setPreferredSize(new Dimension(150,30));
+        comboDeportes.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+        comboDeportes.setBounds(109, 223, 128, 25);
+        frame.getContentPane().add(comboDeportes);
+
+        botonContinuar = new JButtonRedondeado("Continuar");
+        botonContinuar.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+        botonContinuar.setBounds(111, 275, 125, 39);
+        botonContinuar.setBorderPainted(false);
+        frame.getContentPane().add(botonContinuar);
+
+        agregarImagen("src/recursos/logo-sportyfy.png");
+    }
+
+    private void agregarImagen(String ruta) {
+        JLabel img = new JLabel();
+        ImageIcon image = new ImageIcon(ruta);
+        image = new ImageIcon(image.getImage().getScaledInstance(227,49, Image.SCALE_SMOOTH));
+        img.setIcon(image);
+        img.setBounds(59,54,227,49);
+        frame.getContentPane().add(img);
+    }
+
+    public void llenarCombo(Pronosticador p){
             comboDeportes.addItem(p.obtenerDeporte());
     }
 
     public void mostrar(Boolean bool){
         frame.setVisible(bool);
     }
-
-//    @Override
-//    public void update(Observable o, Object arg) {
-//        if (o instanceof SportyfyCore) {
-//            SportyfyCore sportyfyCore = (SportyfyCore) o;
-//            System.out.println(sportyfyCore.getBuscadorPronosticadores().getPronosticadores().getClass().getSimpleName());
-//            llenarCombo(sportyfyCore.getBuscadorPronosticadores().getPronosticadores());
-//        }
-//    }
-
 }

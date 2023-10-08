@@ -1,7 +1,7 @@
 package controladores;
 
-import sportyfy.core.entidades.Equipo;
-import sportyfy.core.modelo.SportyfyCore;
+import sportyfy.core.core.SportyfyCore;
+import sportyfy.core.entidades.equipo.Equipo;
 import sportyfy.ui.VentanaEquipos;
 import javax.swing.*;
 import java.awt.event.ActionEvent;

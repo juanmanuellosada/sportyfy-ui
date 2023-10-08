@@ -1,12 +1,11 @@
 package controladores;
 
-import java.util.Set;
+import sportyfy.core.core.SportyfyCore;
 import sportyfy.ui.VentanaInicial;
 import java.awt.event.ActionEvent;
 import sportyfy.core.Pronosticador;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import sportyfy.core.modelo.SportyfyCore;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -19,7 +18,7 @@ public class VentanaInicialControlador {
 
     public void iniciar(SportyfyCore sportyfyCore) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException, FileNotFoundException, UnsupportedEncodingException {
         this.ventanaInicial.inicializar();
-        this.ventanaInicial.llenarCombo(obtenerPronosticadores(sportyfyCore));
+        this.ventanaInicial.llenarCombo(obtenerPronosticador(sportyfyCore));
         inicializarPanelEquipos(sportyfyCore);
     }
 
@@ -33,7 +32,7 @@ public class VentanaInicialControlador {
         });
     }
 
-    public Set<Pronosticador> obtenerPronosticadores (SportyfyCore spc) throws FileNotFoundException {
-        return spc.getBuscadorPronosticadores().buscarPronosticadores("src/pronosticadores");
+    public Pronosticador obtenerPronosticador(SportyfyCore sportyfyCore) {
+        return sportyfyCore.getPronosticador();
     }
 }
