@@ -4,12 +4,16 @@ import lombok.Getter;
 import sportyfy.core.Pronosticador;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
+import java.util.List;
+
 
 public class VentanaInicial extends JFrame {
     private JFrame frame;
     @Getter
     private JButton botonContinuar;
+    @Getter
     private JComboBox<String> comboDeportes;
 
     public VentanaInicial()  {
@@ -47,17 +51,19 @@ public class VentanaInicial extends JFrame {
         msjInicio.setBounds(10, 116, 328, 30);
         frame.getContentPane().add(msjInicio);
 
-        JLabel msjSeleccione = new JLabel("Seleccione el deporte:");
+        JLabel msjSeleccione = new JLabel("Seleccione el pronosticador-deporte :");
         msjSeleccione.setHorizontalAlignment(SwingConstants.CENTER);
         msjSeleccione.setForeground(new Color(169, 254, 88));
-        msjSeleccione.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+        msjSeleccione.setFont(new Font("Calibri Light", Font.BOLD, 15));
         msjSeleccione.setBounds(10, 192, 328, 23);
         frame.getContentPane().add(msjSeleccione);
 
         comboDeportes = new JComboBox<>();
-        comboDeportes.setPreferredSize(new Dimension(150,30));
+        comboDeportes.setPreferredSize(new Dimension(250,30));
         comboDeportes.setFont(new Font("Calibri Light", Font.PLAIN, 15));
-        comboDeportes.setBounds(109, 223, 128, 25);
+        comboDeportes.setBounds(50, 223, 250, 25);
+
+        comboDeportes.setRenderer(new CenteredComboBoxRenderer());
         frame.getContentPane().add(comboDeportes);
 
         botonContinuar = new JButtonRedondeado("Continuar");
@@ -78,11 +84,24 @@ public class VentanaInicial extends JFrame {
         frame.getContentPane().add(img);
     }
 
-    public void llenarCombo(Pronosticador p){
-            comboDeportes.addItem(p.obtenerDeporte());
+    public void llenarCombo(List<String> pronosticadores){
+        for(String nombrePronosticador: pronosticadores){
+            comboDeportes.addItem(nombrePronosticador);
+        }
     }
 
     public void mostrar(Boolean bool){
         frame.setVisible(bool);
     }
+
+    static class CenteredComboBoxRenderer extends BasicComboBoxRenderer {
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            setHorizontalAlignment(SwingConstants.CENTER); // Centra el texto
+            setVerticalAlignment(SwingConstants.CENTER);
+            return this;
+        }
+    }
+
 }

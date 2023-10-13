@@ -25,12 +25,12 @@ public class VentanaResultadoControlador {
        this.ventanaResultado = new VentanaResultado();
     }
 
-    public void iniciar(SportyfyCore sportyfyCore) {
+    public void iniciar(SportyfyCore sportyfyCore, String nombrePronosticador) {
         this.ventanaResultado.inicializar();
         sportyfyCore.addObserver(this.ventanaResultado);
 
         PartidoFuturo partidoFuturo = new PartidoFuturo(buscarEquipo(local),buscarEquipo(visitante));
-        sportyfyCore.pronosticar(partidoFuturo,iniciador.getPartidosJugados());
+        sportyfyCore.pronosticar(partidoFuturo,iniciador.getPartidosJugados(),nombrePronosticador);
         nuevaPrediccion(sportyfyCore);
     }
 

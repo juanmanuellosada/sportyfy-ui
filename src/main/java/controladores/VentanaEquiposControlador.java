@@ -15,15 +15,15 @@ public class VentanaEquiposControlador {
         this.ventanaEquipos = new VentanaEquipos();
     }
 
-    public void iniciar(SportyfyCore sportyfyCore) {
+    public void iniciar(SportyfyCore sportyfyCore,String nombrePronosticador) {
         ArrayList<Equipo> equipos = (ArrayList<Equipo>) sportyfyCore.getEquipos();
         this.ventanaEquipos.inicializar();
         this.ventanaEquipos.llenarCombos(equipos);
         accionCombo(sportyfyCore);
-        iniciarVentanaPrediccion(sportyfyCore);
+        iniciarVentanaPrediccion(sportyfyCore,nombrePronosticador);
     }
 
-    private void iniciarVentanaPrediccion(SportyfyCore sportyfyCore) {
+    private void iniciarVentanaPrediccion(SportyfyCore sportyfyCore, String nombrePronosticador) {
         ventanaEquipos.getBotonPrediccion().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String equipoSeleccionadoA;
@@ -37,7 +37,7 @@ public class VentanaEquiposControlador {
                 else{
                     ventanaEquipos.mostrar(false);
                     VentanaResultadoControlador controlador = new VentanaResultadoControlador(sportyfyCore, equipoSeleccionadoA, equipoSeleccionadoB);
-                    controlador.iniciar(sportyfyCore);
+                    controlador.iniciar(sportyfyCore,nombrePronosticador);
                 }
             }
         });

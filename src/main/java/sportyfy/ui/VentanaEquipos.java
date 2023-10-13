@@ -4,6 +4,7 @@ import lombok.Getter;
 import sportyfy.core.entidades.equipo.Equipo;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -102,4 +103,5 @@ public class VentanaEquipos extends JFrame {
     public void mostrar(Boolean bool){
         frame.setVisible(bool);
     }
+
 }
