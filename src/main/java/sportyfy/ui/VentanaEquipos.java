@@ -2,6 +2,7 @@ package sportyfy.ui;
 
 import lombok.Getter;
 import sportyfy.core.entidades.equipo.Equipo;
+import sportyfy.ui.personalizador.CustomComboBoxUI;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
 import java.awt.*;
@@ -63,11 +64,13 @@ public class VentanaEquipos extends JFrame {
         comboEquipoA.setFont(new Font("Calibri Light", Font.PLAIN, 15));
         comboEquipoA.setBounds(10, 203, 140, 22);
         frame.getContentPane().add(comboEquipoA);
+//        comboEquipoA.setUI(new CustomComboBoxUI());
 
         comboEquipoB = new JComboBox<>();
         comboEquipoB.setFont(new Font("Calibri Light", Font.PLAIN, 15));
         comboEquipoB.setBounds(199, 203, 140, 22);
         frame.getContentPane().add(comboEquipoB);
+//        comboEquipoB.setUI(new CustomComboBoxUI());
 
         agregarImagen("src/recursos/pelota-futbol.png");
     }

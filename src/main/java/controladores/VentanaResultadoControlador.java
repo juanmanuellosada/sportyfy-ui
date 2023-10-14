@@ -3,6 +3,7 @@ package controladores;
 import sportyfy.core.core.SportyfyCore;
 import sportyfy.core.entidades.equipo.Equipo;
 import sportyfy.core.entidades.partido.PartidoFuturo;
+import sportyfy.historial.Historial;
 import sportyfy.ui.VentanaResultado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,13 +26,15 @@ public class VentanaResultadoControlador {
        this.ventanaResultado = new VentanaResultado();
     }
 
-    public void iniciar(SportyfyCore sportyfyCore) {
+    public void iniciar(SportyfyCore sportyfyCore, VentanaHistorialControlador controlador) {
         this.ventanaResultado.inicializar();
         sportyfyCore.addObserver(this.ventanaResultado);
 
         PartidoFuturo partidoFuturo = new PartidoFuturo(buscarEquipo(local),buscarEquipo(visitante));
         sportyfyCore.pronosticar(partidoFuturo,iniciador.getPartidosJugados());
-        nuevaPrediccion(sportyfyCore);
+//        sportyfyCore.pronosticarParaHistorial(partidoFuturo, iniciador.getPartidosJugados() );
+
+        nuevaPrediccion(sportyfyCore,controlador);
     }
 
     public Equipo buscarEquipo(String nombre){
@@ -42,13 +45,13 @@ public class VentanaResultadoControlador {
         return null;
     }
 
-    private void nuevaPrediccion(SportyfyCore sportyfyCore) {
+    private void nuevaPrediccion(SportyfyCore sportyfyCore,VentanaHistorialControlador controlador) {
         this.ventanaResultado.getBotonNuevaPrediccion().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 ventanaResultado.mostrar(false);
                 VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
                 try {
-                    ventanaInicialControlador.iniciar(sportyfyCore);
+                    ventanaInicialControlador.iniciar(sportyfyCore, controlador);
                 }
                 catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
                        InstantiationException | NoSuchMethodException | FileNotFoundException |
