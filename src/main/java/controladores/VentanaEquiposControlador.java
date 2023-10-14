@@ -2,7 +2,6 @@ package controladores;
 
 import sportyfy.core.core.SportyfyCore;
 import sportyfy.core.entidades.equipo.Equipo;
-import sportyfy.historial.Historial;
 import sportyfy.ui.VentanaEquipos;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -32,14 +31,9 @@ public class VentanaEquiposControlador {
                 equipoSeleccionadoA = (String) ventanaEquipos.getComboEquipoA().getSelectedItem();
                 equipoSeleccionadoB = (String) ventanaEquipos.getComboEquipoB().getSelectedItem();
 
-                if(equipoSeleccionadoA != null && equipoSeleccionadoA.equals(equipoSeleccionadoB)){
-                    JOptionPane.showMessageDialog(null, "Debes seleccionar dos equipos distintos!");
-                }
-                else{
-                    ventanaEquipos.mostrar(false);
-                    VentanaResultadoControlador ResultadoControlador = new VentanaResultadoControlador(sportyfyCore, equipoSeleccionadoA, equipoSeleccionadoB);
-                    ResultadoControlador.iniciar(sportyfyCore, controlador);
-                }
+                ventanaEquipos.mostrar(false);
+                VentanaResultadoControlador ResultadoControlador = new VentanaResultadoControlador(sportyfyCore, equipoSeleccionadoA, equipoSeleccionadoB);
+                ResultadoControlador.iniciar(sportyfyCore, controlador);
             }
         });
     }
@@ -51,4 +45,6 @@ public class VentanaEquiposControlador {
             }
         });
     }
+
+
 }

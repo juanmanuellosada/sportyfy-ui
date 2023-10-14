@@ -32,7 +32,6 @@ public class VentanaResultadoControlador {
 
         PartidoFuturo partidoFuturo = new PartidoFuturo(buscarEquipo(local),buscarEquipo(visitante));
         sportyfyCore.pronosticar(partidoFuturo,iniciador.getPartidosJugados());
-//        sportyfyCore.pronosticarParaHistorial(partidoFuturo, iniciador.getPartidosJugados() );
 
         nuevaPrediccion(sportyfyCore,controlador);
     }
@@ -52,6 +51,7 @@ public class VentanaResultadoControlador {
                 VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
                 try {
                     ventanaInicialControlador.iniciar(sportyfyCore, controlador);
+//                    controlador.getVentanaHistorial().
                 }
                 catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
                        InstantiationException | NoSuchMethodException | FileNotFoundException |

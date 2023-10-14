@@ -2,7 +2,6 @@ package sportyfy.ui;
 
 import lombok.Getter;
 import sportyfy.core.Pronosticador;
-import sportyfy.ui.personalizador.CustomComboBoxUI;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +18,8 @@ public class VentanaInicial extends JFrame {
     private JComboBox<String> comboDeportes;
 
     public VentanaInicial()  {
-
     }
+
     public void inicializar(){
         inicializarFrame();
         inicializarComponentes();
@@ -36,7 +35,6 @@ public class VentanaInicial extends JFrame {
         frame.getContentPane().setLayout(null);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
     }
 
     private void inicializarComponentes(){
@@ -61,21 +59,19 @@ public class VentanaInicial extends JFrame {
         msjSeleccione.setBounds(10, 192, 328, 23);
         frame.getContentPane().add(msjSeleccione);
 
-
-
         comboDeportes = new JComboBox<>();
         comboDeportes.setPreferredSize(new Dimension(150,30));
         comboDeportes.setFont(new Font("Calibri Light", Font.PLAIN, 15));
         comboDeportes.setBounds(109, 223, 128, 25);
-//        comboDeportes.setUI(new CustomComboBoxUI());
         frame.getContentPane().add(comboDeportes);
-
 
         botonContinuar = new JButtonRedondeado("Continuar");
         botonContinuar.setFont(new Font("Calibri Light", Font.PLAIN, 15));
         botonContinuar.setBounds(111, 275, 125, 39);
         botonContinuar.setBorderPainted(false);
         frame.getContentPane().add(botonContinuar);
+        agregarEfectoBotonContinuar();
+
 
         botonHistorial = new JButtonRedondeado("HISTORIAL");
         botonHistorial.setFont(new Font("Calibri Light", Font.PLAIN, 11));
@@ -84,29 +80,37 @@ public class VentanaInicial extends JFrame {
         botonHistorial.setBackground(new Color(32, 12, 61));
         botonHistorial.setBounds(257, 11, 85, 20);
         frame.getContentPane().add(botonHistorial);
+        agregarEfectoBotonHistorial();
+
+        agregarImagen("src/recursos/logo-sportyfy.png");
+    }
+
+    private void agregarEfectoBotonHistorial() {
         botonHistorial.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
                 botonHistorial.setForeground(Color.white);
-                botonHistorial.setFont(new Font("Calibri Light", Font.BOLD, 11));
                 botonHistorial.setBackground(new Color (52, 20, 99));
-
             }
             public void mouseExited(MouseEvent e) {
                 botonHistorial.setForeground(Color.white);
-
-                botonHistorial.setFont(new Font("Calibri Light", Font.PLAIN, 11));
                 botonHistorial.setBackground(new Color (32, 12, 61));
             }
         });
+    }
 
-        agregarImagen("src/recursos/logo-sportyfy.png");
-
-//        JLabel lblNewLabel = new JLabel();
-//        lblNewLabel.setBounds(10, 110, 328, 220);
-//        lblNewLabel.setBackground(new Color(41,42,45));
-//        lblNewLabel.setOpaque(true);
-//        frame.getContentPane().add(lblNewLabel);
+    private void agregarEfectoBotonContinuar() {
+        botonContinuar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonContinuar.setForeground(Color.white);
+                botonContinuar.setBackground(new Color (52, 20, 99));
+            }
+            public void mouseExited(MouseEvent e) {
+                botonContinuar.setForeground(new Color (32, 12, 61));
+                botonContinuar.setBackground(Color.white);
+            }
+        });
     }
 
     private void agregarImagen(String ruta) {
