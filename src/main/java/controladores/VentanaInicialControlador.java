@@ -46,7 +46,6 @@ public class VentanaInicialControlador {
                             sportyfyCore.setPronosticadores(pronosticadores);
                             comboDeportes.removeAllItems();
                             ventanaInicial.llenarCombo(obtenerPronosticadores(sportyfyCore));
-                            System.out.println("reconoce el evento de hacer click en el ComboBox");
                         }
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
