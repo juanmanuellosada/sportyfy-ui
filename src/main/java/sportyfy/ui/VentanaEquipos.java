@@ -6,6 +6,8 @@ import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class VentanaEquipos extends JFrame {
@@ -17,7 +19,6 @@ public class VentanaEquipos extends JFrame {
     @Getter
     private JComboBox<String> comboEquipoB;
 
-//create the application.
     public VentanaEquipos()  {
     }
 
@@ -59,6 +60,7 @@ public class VentanaEquipos extends JFrame {
         botonPrediccion.setBounds(111, 275, 125, 39);
         botonPrediccion.setBorderPainted(false);
         frame.getContentPane().add(botonPrediccion);
+        agregarEfectoBotonPrediccion();
 
         comboEquipoA = new JComboBox<>();
         comboEquipoA.setFont(new Font("Calibri Light", Font.PLAIN, 15));
@@ -98,6 +100,20 @@ public class VentanaEquipos extends JFrame {
                 this.comboEquipoB.addItem(e.getNombre());
             }
         }
+    }
+
+    private void agregarEfectoBotonPrediccion() {
+        botonPrediccion.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonPrediccion.setForeground(Color.white);
+                botonPrediccion.setBackground(new Color (52, 20, 99));
+            }
+            public void mouseExited(MouseEvent e) {
+                botonPrediccion.setForeground(new Color (32, 12, 61));
+                botonPrediccion.setBackground(Color.white);
+            }
+        });
     }
 
     public void mostrar(Boolean bool){

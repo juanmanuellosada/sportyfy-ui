@@ -25,13 +25,14 @@ public class VentanaResultadoControlador {
        this.ventanaResultado = new VentanaResultado();
     }
 
-    public void iniciar(SportyfyCore sportyfyCore, String nombrePronosticador) {
+    public void iniciar(SportyfyCore sportyfyCore, String nombrePronosticador, VentanaHistorialControlador controladorHistorial) {
         this.ventanaResultado.inicializar();
         sportyfyCore.addObserver(this.ventanaResultado);
 
         PartidoFuturo partidoFuturo = new PartidoFuturo(buscarEquipo(local),buscarEquipo(visitante));
-        sportyfyCore.pronosticar(partidoFuturo,iniciador.getPartidosJugados(),nombrePronosticador);
-        nuevaPrediccion(sportyfyCore);
+        sportyfyCore.pronosticar(partidoFuturo,nombrePronosticador);
+
+        nuevaPrediccion(sportyfyCore, controladorHistorial);
     }
 
     public Equipo buscarEquipo(String nombre){
@@ -42,13 +43,13 @@ public class VentanaResultadoControlador {
         return null;
     }
 
-    private void nuevaPrediccion(SportyfyCore sportyfyCore) {
+    private void nuevaPrediccion(SportyfyCore sportyfyCore, VentanaHistorialControlador controladorHistorial) {
         this.ventanaResultado.getBotonNuevaPrediccion().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 ventanaResultado.mostrar(false);
                 VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
                 try {
-                    ventanaInicialControlador.iniciar(sportyfyCore);
+                    ventanaInicialControlador.iniciar(sportyfyCore, controladorHistorial);
                 }
                 catch (ClassNotFoundException | InvocationTargetException | IllegalAccessException |
                        InstantiationException | NoSuchMethodException | FileNotFoundException |

@@ -1,24 +1,28 @@
 package sportyfy.ui;
 
 import lombok.Getter;
-import sportyfy.core.Pronosticador;
+import lombok.Setter;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
-
+@Getter
+@Setter
 public class VentanaInicial extends JFrame {
     private JFrame frame;
+    private JPanel panel;
     @Getter
     private JButton botonContinuar;
     @Getter
+    private JButton botonHistorial;
     private JComboBox<String> comboDeportes;
 
     public VentanaInicial()  {
-
     }
+
     public void inicializar(){
         inicializarFrame();
         inicializarComponentes();
@@ -51,19 +55,17 @@ public class VentanaInicial extends JFrame {
         msjInicio.setBounds(10, 116, 328, 30);
         frame.getContentPane().add(msjInicio);
 
-        JLabel msjSeleccione = new JLabel("Seleccione el pronosticador-deporte :");
+        JLabel msjSeleccione = new JLabel("Seleccione el deporte:");
         msjSeleccione.setHorizontalAlignment(SwingConstants.CENTER);
         msjSeleccione.setForeground(new Color(169, 254, 88));
-        msjSeleccione.setFont(new Font("Calibri Light", Font.BOLD, 15));
+        msjSeleccione.setFont(new Font("Calibri Light", Font.PLAIN, 15));
         msjSeleccione.setBounds(10, 192, 328, 23);
         frame.getContentPane().add(msjSeleccione);
 
         comboDeportes = new JComboBox<>();
-        comboDeportes.setPreferredSize(new Dimension(250,30));
+        comboDeportes.setPreferredSize(new Dimension(150,30));
         comboDeportes.setFont(new Font("Calibri Light", Font.PLAIN, 15));
-        comboDeportes.setBounds(50, 223, 250, 25);
-
-        comboDeportes.setRenderer(new CenteredComboBoxRenderer());
+        comboDeportes.setBounds(109, 223, 128, 25);
         frame.getContentPane().add(comboDeportes);
 
         botonContinuar = new JButtonRedondeado("Continuar");
@@ -71,8 +73,47 @@ public class VentanaInicial extends JFrame {
         botonContinuar.setBounds(111, 275, 125, 39);
         botonContinuar.setBorderPainted(false);
         frame.getContentPane().add(botonContinuar);
+        agregarEfectoBotonContinuar();
+
+
+        botonHistorial = new JButtonRedondeado("HISTORIAL");
+        botonHistorial.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+        botonHistorial.setForeground(Color.white);
+        botonHistorial.setBorderPainted(false);
+        botonHistorial.setBackground(new Color(32, 12, 61));
+        botonHistorial.setBounds(257, 11, 85, 20);
+        frame.getContentPane().add(botonHistorial);
+        agregarEfectoBotonHistorial();
 
         agregarImagen("src/recursos/logo-sportyfy.png");
+    }
+
+    private void agregarEfectoBotonHistorial() {
+        botonHistorial.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonHistorial.setForeground(Color.white);
+                botonHistorial.setBackground(new Color (52, 20, 99));
+            }
+            public void mouseExited(MouseEvent e) {
+                botonHistorial.setForeground(Color.white);
+                botonHistorial.setBackground(new Color (32, 12, 61));
+            }
+        });
+    }
+
+    private void agregarEfectoBotonContinuar() {
+        botonContinuar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonContinuar.setForeground(Color.white);
+                botonContinuar.setBackground(new Color (52, 20, 99));
+            }
+            public void mouseExited(MouseEvent e) {
+                botonContinuar.setForeground(new Color (32, 12, 61));
+                botonContinuar.setBackground(Color.white);
+            }
+        });
     }
 
     private void agregarImagen(String ruta) {
@@ -85,23 +126,12 @@ public class VentanaInicial extends JFrame {
     }
 
     public void llenarCombo(List<String> pronosticadores){
-        for(String nombrePronosticador: pronosticadores){
-            comboDeportes.addItem(nombrePronosticador);
+        for (String pronosticador : pronosticadores) {
+            comboDeportes.addItem(pronosticador);
         }
     }
 
     public void mostrar(Boolean bool){
         frame.setVisible(bool);
     }
-
-    static class CenteredComboBoxRenderer extends BasicComboBoxRenderer {
-        @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-            setHorizontalAlignment(SwingConstants.CENTER); // Centra el texto
-            setVerticalAlignment(SwingConstants.CENTER);
-            return this;
-        }
-    }
-
 }

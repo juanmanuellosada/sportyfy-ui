@@ -15,25 +15,26 @@ import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class VentanaInicialControlador {
-   VentanaInicial ventanaInicial;
+   private final VentanaInicial ventanaInicial;
 
     public VentanaInicialControlador(){
        this.ventanaInicial = new VentanaInicial();
     }
 
-    public void iniciar(SportyfyCore sportyfyCore) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException, FileNotFoundException, UnsupportedEncodingException {
+    public void iniciar(SportyfyCore sportyfyCore, VentanaHistorialControlador controladorHistorial) throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException, FileNotFoundException, UnsupportedEncodingException {
         this.ventanaInicial.inicializar();
         this.ventanaInicial.llenarCombo(obtenerPronosticadores(sportyfyCore));
-        inicializarPanelEquipos(sportyfyCore);
+        inicializarPanelEquipos(sportyfyCore, controladorHistorial);
+        abrirHistorial(sportyfyCore, controladorHistorial);
     }
 
-    private void inicializarPanelEquipos(SportyfyCore sportyfyCore) {
-        JComboBox comboDeportes = ventanaInicial.getComboDeportes();
+
+    private void inicializarPanelEquipos(SportyfyCore sportyfyCore, VentanaHistorialControlador controladorHistorial) {
+        JComboBox<String> comboDeportes = ventanaInicial.getComboDeportes();
         Component[] comboDeportesComponentes = comboDeportes.getComponents();
 
         for (Component componente : comboDeportesComponentes) {
@@ -59,8 +60,19 @@ public class VentanaInicialControlador {
                 ventanaInicial.mostrar(false);
                 String nombrePronosticadorElegido = ventanaInicial.getComboDeportes().getSelectedItem().toString();
                 VentanaEquiposControlador ventanaEquiposController = new VentanaEquiposControlador();
-                ventanaEquiposController.iniciar(sportyfyCore,nombrePronosticadorElegido);
+                ventanaEquiposController.iniciar(sportyfyCore,nombrePronosticadorElegido, controladorHistorial);
 
+            }
+        });
+    }
+
+    private void abrirHistorial(SportyfyCore sportyfyCore, VentanaHistorialControlador controlador){
+        this.ventanaInicial.getBotonHistorial().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                controlador.iniciar(sportyfyCore);
+                controlador.cargarPantalla();
+
+//                controlador.getVentanaHistorial().mostrar(true);
             }
         });
     }
@@ -74,6 +86,7 @@ public class VentanaInicialControlador {
         return false;
 
     }
+
     public List<String> obtenerPronosticadores(SportyfyCore sportyfyCore) {
         return sportyfyCore.obtenerNombresPronosticadores(sportyfyCore.getPronosticadores());
     }

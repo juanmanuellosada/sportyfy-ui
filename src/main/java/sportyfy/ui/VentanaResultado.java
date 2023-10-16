@@ -7,6 +7,8 @@ import sportyfy.core.entidades.equipo.Equipo;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -46,11 +48,12 @@ public class VentanaResultado extends JFrame implements Observer {
         msjGanadorEs.setBounds(10, 38, 328, 40);
         frame.getContentPane().add(msjGanadorEs);
 
-        botonNuevaPrediccion = new JButtonRedondeado("Nueva predicción");
+        botonNuevaPrediccion = new JButtonRedondeado("Volver al inicio");
         botonNuevaPrediccion.setFont(new Font("Calibri Light", Font.PLAIN, 15));
         botonNuevaPrediccion.setBounds(94, 272, 165, 39);
         botonNuevaPrediccion.setBorderPainted(false);
         frame.getContentPane().add(botonNuevaPrediccion);
+        agregarEfectoBotonNuevaPrediccion();
     }
 
     private void mostrarResultado(Pronostico pronosticoActual) {
@@ -77,6 +80,22 @@ public class VentanaResultado extends JFrame implements Observer {
         img.setIcon(image);
         img.setBounds(104, 116, 137, 135);
         frame.getContentPane().add(img);
+    }
+
+    private void agregarEfectoBotonNuevaPrediccion() {
+        botonNuevaPrediccion.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonNuevaPrediccion.setForeground(Color.white);
+                botonNuevaPrediccion.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+                botonNuevaPrediccion.setBackground(new Color (52, 20, 99));
+            }
+            public void mouseExited(MouseEvent e) {
+                botonNuevaPrediccion.setForeground(new Color (32, 12, 61));
+                botonNuevaPrediccion.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+                botonNuevaPrediccion.setBackground(Color.white);
+            }
+        });
     }
 
     public void mostrar(Boolean bool){
