@@ -65,7 +65,7 @@ public class VentanaInicial extends JFrame {
         comboDeportes = new JComboBox<>();
         comboDeportes.setPreferredSize(new Dimension(150,30));
         comboDeportes.setFont(new Font("Calibri Light", Font.PLAIN, 15));
-        comboDeportes.setBounds(109, 223, 128, 25);
+        comboDeportes.setBounds(34, 223, 282, 25);
         frame.getContentPane().add(comboDeportes);
 
         botonContinuar = new JButtonRedondeado("Continuar");
@@ -81,7 +81,7 @@ public class VentanaInicial extends JFrame {
         botonHistorial.setForeground(Color.white);
         botonHistorial.setBorderPainted(false);
         botonHistorial.setBackground(new Color(32, 12, 61));
-        botonHistorial.setBounds(257, 11, 85, 20);
+        botonHistorial.setBounds(247, 11, 100, 20);
         frame.getContentPane().add(botonHistorial);
         agregarEfectoBotonHistorial();
 
