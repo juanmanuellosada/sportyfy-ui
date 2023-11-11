@@ -1,14 +1,16 @@
 package controladores;
 
-import sportyfy.core.core.SportyfyCore;
+import sportyfy.core.Pronosticador;
+import sportyfy.core.entidades.core.SportyfyCore;
 import sportyfy.core.entidades.equipo.Equipo;
-import sportyfy.core.entidades.partido.PartidoFuturo;
+import sportyfy.core.entidades.partido.Partido;
 import sportyfy.ui.VentanaResultado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -27,16 +29,16 @@ public class VentanaResultadoControlador {
 
     public void iniciar(SportyfyCore sportyfyCore, String nombrePronosticador, VentanaHistorialControlador controladorHistorial) {
         this.ventanaResultado.inicializar();
-        sportyfyCore.addObserver(this.ventanaResultado);
+        sportyfyCore.getNotificador().addPropertyChangeListener(controladorHistorial.getHistorial());
 
-        PartidoFuturo partidoFuturo = new PartidoFuturo(buscarEquipo(local),buscarEquipo(visitante));
+        Partido partidoFuturo = new Partido(buscarEquipo(local,sportyfyCore,nombrePronosticador),buscarEquipo(visitante,sportyfyCore,nombrePronosticador));
         sportyfyCore.pronosticar(partidoFuturo,nombrePronosticador);
 
         nuevaPrediccion(sportyfyCore, controladorHistorial);
     }
 
-    public Equipo buscarEquipo(String nombre){
-        List<Equipo> equipos = iniciador.getEquipos();
+    public Equipo buscarEquipo(String nombre, SportyfyCore sportyfyCore, String nombrePronosticaodor){
+        List<Equipo> equipos = traerEquipos(sportyfyCore, nombrePronosticaodor);
         for (Equipo equipo : equipos){
             if(equipo.getNombre().equals(nombre)) return equipo;
         }
@@ -59,5 +61,15 @@ public class VentanaResultadoControlador {
                 }
             }
         });
+    }
+
+    private ArrayList<Equipo> traerEquipos(SportyfyCore sportyfyCore, String nombrePronosticador) {
+        ArrayList<Equipo> equipos = new ArrayList<>();
+        for(Pronosticador p : sportyfyCore.getPronosticadores()){
+            if(p.getClass().getName().equals(nombrePronosticador)){
+                equipos = (ArrayList<Equipo>) p.getEquipos();
+            }
+        }
+        return equipos;
     }
 }

@@ -1,17 +1,17 @@
 package controladores;
 
 import lombok.Getter;
-import sportyfy.core.Pronostico;
-import sportyfy.core.core.SportyfyCore;
+import sportyfy.core.entidades.core.SportyfyCore;
+import sportyfy.core.entidades.equipo.Equipo;
+import sportyfy.core.entidades.resultado.Resultado;
 import sportyfy.historial.Historial;
 import sportyfy.ui.VentanaHistorial;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
+
+import static java.lang.Integer.compare;
 
 @Getter
 public class VentanaHistorialControlador {
@@ -24,14 +24,16 @@ public class VentanaHistorialControlador {
     }
 
     public void iniciar(SportyfyCore sportyfyCore){
-        sportyfyCore.addObserver(this.historial);
+//        sportyfyCore.addObserver(this.historial);
+        sportyfyCore.getNotificador().addPropertyChangeListener(historial);
         accionAtras();
     }
 
     public void cargarPantalla() {
         ventanaHistorial.mostrar(true);
         ventanaHistorial.setFecha(getFecha());
-        ventanaHistorial.llenarVentana(mostrarPronosticos((ArrayList<Pronostico>) this.historial.getPronosticosRealizados()));
+//        ventanaHistorial.llenarVentana(mostrarPronosticos((ArrayList<Pronostico>) this.historial.getPronosticosRealizados()));
+        ventanaHistorial.llenarVentana(mostrarPronosticos(this.historial));
     }
 
     private void accionAtras() {
@@ -42,28 +44,58 @@ public class VentanaHistorialControlador {
         });
     }
 
-    public String mostrarPronosticos(ArrayList<Pronostico> pronosticos){
-        StringBuilder listado = new StringBuilder("<html>");
-        for(Pronostico p : pronosticos) {
-            String aux = "&nbsp;";
-            if(p.getEquipoGanador() != null){
-                aux += p.getPartidoFuturo().getEquipoLocal().getNombre()+" - ";
-                aux += p.getPartidoFuturo().getEquipoVisitante().getNombre()+"<br>";
-                aux += darColor(169,254,88,"&nbsp;&nbsp;Ganador: "+p.getEquipoGanador().getNombre()+"<br><br>");
+    public String mostrarPronosticos(Historial historial){
+        StringBuilder ret = new StringBuilder("<html>");
+        for (Resultado resultado : historial.getPronosticosRealizados().values()){
+            String aux = "&nbsp;"+ resultado.getPrimerEquipo().getNombre() +" vs. ";
+            aux += resultado.getSegundoEquipo().getNombre()+"<br>";
+
+            String ganador = nombreGanador(obtenerGanador(resultado));
+            if(!ganador.isEmpty()){
+                aux += darColor(169,254,88,"&nbsp;&nbsp;Ganador: "+ganador+"<br><br>");
             }
             else{
-                aux += p.getPartidoFuturo().getEquipoLocal().getNombre()+" vs. ";
-                aux += p.getPartidoFuturo().getEquipoVisitante().getNombre()+"<br>";
                 aux += darColor(169,254,88,"&nbsp;&nbsp;Empate<br><br>");
-
             }
-            listado.append(aux);
+            ret.append(aux);
         }
-        listado.append("<html>");
-        return listado.toString();
+        ret.append("<html>");
+        return ret.toString();
     }
 
-    public String getFecha() {
+    private String nombreGanador(Equipo equipo){
+        if(equipo != null)
+            return equipo.getNombre();
+        else
+            return "";
+    }
+
+    private Equipo obtenerGanador(Resultado resultado){
+        Optional<Integer> primerMarcador = resultado.getMarcador(resultado.getPrimerEquipo());
+        Optional<Integer> segundoMarcador = resultado.getMarcador(resultado.getSegundoEquipo());
+
+        if(primerMarcador.isPresent() && segundoMarcador.isPresent()) {
+            int rtdoComparacion = compare(primerMarcador.get(), segundoMarcador.get());
+
+            switch (rtdoComparacion) {
+                case 1:
+                    return resultado.getPrimerEquipo();
+                case 0:
+                    return null;
+                case -1:
+                    return resultado.getSegundoEquipo();
+            }
+        }
+        else{
+            if(primerMarcador.isPresent())
+                return resultado.getPrimerEquipo();
+            else
+                return resultado.getSegundoEquipo();
+        }
+        return null;
+    }
+
+    private String getFecha() {
         String ret = "Hoy - ";
 
         Date fechaActual = new Date();

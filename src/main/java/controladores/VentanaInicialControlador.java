@@ -1,20 +1,20 @@
 package controladores;
 
-import sportyfy.core.BuscadorPronosticadores;
-import sportyfy.core.core.SportyfyCore;
+import sportyfy.core.servicios.buscadores.BuscadorPronosticadores;
 import sportyfy.ui.VentanaInicial;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import sportyfy.core.Pronosticador;
-
+import sportyfy.core.entidades.core.SportyfyCore;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -48,6 +48,8 @@ public class VentanaInicialControlador {
                             ventanaInicial.llenarCombo(obtenerPronosticadores(sportyfyCore));
                         }
                     } catch (FileNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
@@ -87,6 +89,10 @@ public class VentanaInicialControlador {
     }
 
     public List<String> obtenerPronosticadores(SportyfyCore sportyfyCore) {
-        return sportyfyCore.obtenerNombresPronosticadores(sportyfyCore.getPronosticadores());
+//        return sportyfyCore.obtenerNombresPronosticadores(sportyfyCore.getPronosticadores());
+        List<String> ret = new ArrayList<>();
+        for(Pronosticador p : sportyfyCore.getPronosticadores())
+            ret.add(p.getClass().getName());
+        return ret;
     }
 }
