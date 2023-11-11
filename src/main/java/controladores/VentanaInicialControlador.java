@@ -61,7 +61,7 @@ public class VentanaInicialControlador {
                 ventanaInicial.mostrar(false);
                 String nombrePronosticadorElegido = ventanaInicial.getComboDeportes().getSelectedItem().toString();
                 VentanaEquiposControlador ventanaEquiposController = new VentanaEquiposControlador();
-                ventanaEquiposController.iniciar(sportyfyCore,nombrePronosticadorElegido, controladorHistorial);
+                ventanaEquiposController.iniciar(sportyfyCore, nombrePronosticadorElegido, controladorHistorial);
 
             }
         });
@@ -92,7 +92,7 @@ public class VentanaInicialControlador {
 //        return sportyfyCore.obtenerNombresPronosticadores(sportyfyCore.getPronosticadores());
         List<String> ret = new ArrayList<>();
         for(Pronosticador p : sportyfyCore.getPronosticadores())
-            ret.add(p.getClass().getName());
+            ret.add(p.getDeporte());
         return ret;
     }
 }

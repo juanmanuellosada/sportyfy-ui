@@ -32,7 +32,7 @@ public class VentanaEquiposControlador {
     private ArrayList<Equipo> traerEquipos(SportyfyCore sportyfyCore, String nombrePronosticador) {
         ArrayList<Equipo> equipos = new ArrayList<>();
         for(Pronosticador p : sportyfyCore.getPronosticadores()){
-            if(p.getClass().getName().equals(nombrePronosticador)){
+            if(p.getDeporte().equals(nombrePronosticador)){
                 equipos = (ArrayList<Equipo>) p.getEquipos();
             }
         }
