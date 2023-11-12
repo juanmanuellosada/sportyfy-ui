@@ -4,6 +4,7 @@ import lombok.Getter;
 import sportyfy.core.entidades.equipo.Equipo;
 import sportyfy.core.entidades.partido.Partido;
 import sportyfy.core.entidades.resultado.Resultado;
+import sportyfy.historial.Historial;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +29,7 @@ public class VentanaResultado extends JFrame implements PropertyChangeListener {
     public void inicializar() {
         inicializarFrame();
         inicializarComponentes();
+
     }
 
     private void inicializarFrame() {
@@ -60,7 +62,7 @@ public class VentanaResultado extends JFrame implements PropertyChangeListener {
         agregarEfectoBotonNuevaPrediccion();
     }
 
-    private void mostrarResultado(Resultado pronostico) {
+    public void mostrarResultado(Resultado pronostico) {
         if(obtenerGanador(pronostico) != null)
             mostrarGanador(Objects.requireNonNull(obtenerGanador(pronostico)));
         else
@@ -102,7 +104,13 @@ public class VentanaResultado extends JFrame implements PropertyChangeListener {
         });
     }
 
+    public void mostrarResultado(String s){
+        msjGanadorEs.setText("<html><center>Según Sportyfy, no hay pronóstico a favor de ningún/n equipo, se prevee un empate.</center><html>");
+
+    }
+
     private Equipo obtenerGanador(Resultado resultado){
+        System.out.print("se obteiene el ganador");
         Optional<Integer> primerMarcador = resultado.getMarcador(resultado.getPrimerEquipo());
         Optional<Integer> segundoMarcador = resultado.getMarcador(resultado.getSegundoEquipo());
 
@@ -137,6 +145,7 @@ public class VentanaResultado extends JFrame implements PropertyChangeListener {
             Resultado resultadoNuevo = (Resultado) evt.getNewValue();
             System.out.println("Se hizo un nuevo pronóstico con este resultado: " + resultadoNuevo.toString());
             Partido partido = new Partido(resultadoNuevo.getPrimerEquipo(), resultadoNuevo.getSegundoEquipo());
+            mostrarResultado(resultadoNuevo);
         }
     }
 }

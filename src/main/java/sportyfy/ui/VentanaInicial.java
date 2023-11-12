@@ -1,7 +1,6 @@
 package sportyfy.ui;
 
 import lombok.Getter;
-import lombok.Setter;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
 import java.awt.*;
@@ -10,23 +9,18 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 @Getter
-@Setter
 public class VentanaInicial extends JFrame {
     private JFrame frame;
     private JPanel panel;
-    @Getter
     private JButton botonContinuar;
-    @Getter
     private JButton botonHistorial;
-    private JComboBox<String> comboDeportes;
-
-    public VentanaInicial()  {
-    }
+    private JComboBox<String> comboPronosticadores;
 
     public void inicializar(){
         inicializarFrame();
         inicializarComponentes();
     }
+
     private void inicializarFrame() {
         frame = new JFrame();
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/logo-pelota.png"));
@@ -55,26 +49,25 @@ public class VentanaInicial extends JFrame {
         msjInicio.setBounds(10, 116, 328, 30);
         frame.getContentPane().add(msjInicio);
 
-        JLabel msjSeleccione = new JLabel("Seleccione el deporte:");
+        JLabel msjSeleccione = new JLabel("Seleccione un pronosticador:");
         msjSeleccione.setHorizontalAlignment(SwingConstants.CENTER);
         msjSeleccione.setForeground(new Color(169, 254, 88));
         msjSeleccione.setFont(new Font("Calibri Light", Font.PLAIN, 15));
         msjSeleccione.setBounds(10, 192, 328, 23);
         frame.getContentPane().add(msjSeleccione);
 
-        comboDeportes = new JComboBox<>();
-        comboDeportes.setPreferredSize(new Dimension(150,30));
-        comboDeportes.setFont(new Font("Calibri Light", Font.PLAIN, 15));
-        comboDeportes.setBounds(34, 223, 282, 25);
-        frame.getContentPane().add(comboDeportes);
+        comboPronosticadores = new JComboBox<>();
+        comboPronosticadores.setPreferredSize(new Dimension(150,30));
+        comboPronosticadores.setFont(new Font("Calibri Light", Font.PLAIN, 15));
+        comboPronosticadores.setBounds(34, 223, 282, 25);
+        frame.getContentPane().add(comboPronosticadores);
 
         botonContinuar = new JButtonRedondeado("Continuar");
         botonContinuar.setFont(new Font("Calibri Light", Font.PLAIN, 15));
         botonContinuar.setBounds(111, 275, 125, 39);
         botonContinuar.setBorderPainted(false);
         frame.getContentPane().add(botonContinuar);
-        agregarEfectoBotonContinuar();
-
+        agregarAccionBotonContinuar();
 
         botonHistorial = new JButtonRedondeado("HISTORIAL");
         botonHistorial.setFont(new Font("Calibri Light", Font.PLAIN, 11));
@@ -83,12 +76,12 @@ public class VentanaInicial extends JFrame {
         botonHistorial.setBackground(new Color(32, 12, 61));
         botonHistorial.setBounds(247, 11, 100, 20);
         frame.getContentPane().add(botonHistorial);
-        agregarEfectoBotonHistorial();
+        agregarAccionBotonHistorial();
 
-        agregarImagen("src/recursos/logo-sportyfy.png");
+        agregarLogoSportyfy();
     }
 
-    private void agregarEfectoBotonHistorial() {
+    private void agregarAccionBotonHistorial() {
         botonHistorial.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -102,7 +95,7 @@ public class VentanaInicial extends JFrame {
         });
     }
 
-    private void agregarEfectoBotonContinuar() {
+    private void agregarAccionBotonContinuar() {
         botonContinuar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -116,9 +109,9 @@ public class VentanaInicial extends JFrame {
         });
     }
 
-    private void agregarImagen(String ruta) {
+    private void agregarLogoSportyfy() {
         JLabel img = new JLabel();
-        ImageIcon image = new ImageIcon(ruta);
+        ImageIcon image = new ImageIcon("src/recursos/logo-sportyfy.png");
         image = new ImageIcon(image.getImage().getScaledInstance(227,49, Image.SCALE_SMOOTH));
         img.setIcon(image);
         img.setBounds(59,54,227,49);
@@ -126,12 +119,11 @@ public class VentanaInicial extends JFrame {
     }
 
     public void llenarCombo(List<String> pronosticadores){
-        for (String pronosticador : pronosticadores) {
-            comboDeportes.addItem(pronosticador);
-        }
+        for (String p : pronosticadores)
+            comboPronosticadores.addItem(p);
     }
 
-    public void mostrar(Boolean bool){
-        frame.setVisible(bool);
+    public void mostrar(Boolean b){
+        frame.setVisible(b);
     }
 }

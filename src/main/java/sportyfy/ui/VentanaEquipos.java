@@ -4,11 +4,9 @@ import lombok.Getter;
 import sportyfy.core.entidades.equipo.Equipo;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.Set;
 
 public class VentanaEquipos extends JFrame {
@@ -73,12 +71,12 @@ public class VentanaEquipos extends JFrame {
         comboEquipoB.setBounds(199, 203, 140, 22);
         frame.getContentPane().add(comboEquipoB);
 
-        agregarImagen("src/recursos/pelota-futbol.png");
+        agregarImagen();
     }
 
-    private void agregarImagen(String ruta) {
+    private void agregarImagen() {
         JLabel img = new JLabel();
-        ImageIcon image = new ImageIcon(ruta);
+        ImageIcon image = new ImageIcon("src/recursos/pelota-futbol.png");
         image = new ImageIcon(image.getImage().getScaledInstance(137, 135, Image.SCALE_SMOOTH));
         img.setIcon(image);
         img.setBounds(111,25,137,135);
