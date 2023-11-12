@@ -34,6 +34,7 @@ public class VentanaInicialControlador {
 
 
     private void inicializarPanelEquipos(SportyfyCore sportyfyCore, VentanaHistorialControlador controladorHistorial) {
+
         JComboBox<String> comboDeportes = ventanaInicial.getComboDeportes();
         Component[] comboDeportesComponentes = comboDeportes.getComponents();
 

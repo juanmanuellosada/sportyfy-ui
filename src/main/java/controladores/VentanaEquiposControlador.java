@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class VentanaEquiposControlador {
     VentanaEquipos ventanaEquipos;
@@ -17,7 +19,7 @@ public class VentanaEquiposControlador {
     }
 
     public void iniciar(SportyfyCore sportyfyCore,String nombrePronosticador, VentanaHistorialControlador controlador) {
-        ArrayList<Equipo> equipos = traerEquipos(sportyfyCore, nombrePronosticador);
+        Set<Equipo> equipos = traerEquipos(sportyfyCore, nombrePronosticador);
         this.ventanaEquipos.inicializar();
         if (!equipos.isEmpty()) {
             this.ventanaEquipos.llenarCombos(equipos);
@@ -29,11 +31,11 @@ public class VentanaEquiposControlador {
         iniciarVentanaPrediccion(sportyfyCore, nombrePronosticador, controlador);
     }
 
-    private ArrayList<Equipo> traerEquipos(SportyfyCore sportyfyCore, String nombrePronosticador) {
-        ArrayList<Equipo> equipos = new ArrayList<>();
+    private Set<Equipo> traerEquipos(SportyfyCore sportyfyCore, String nombrePronosticador) {
+        Set<Equipo> equipos = new HashSet<>();
         for(Pronosticador p : sportyfyCore.getPronosticadores()){
             if(p.getDeporte().equals(nombrePronosticador)){
-                equipos = (ArrayList<Equipo>) p.getEquipos();
+                equipos = p.getEquipos();
             }
         }
         return equipos;
@@ -62,7 +64,7 @@ public class VentanaEquiposControlador {
     private void accionCombo(SportyfyCore sportyfyCore, String nombrePronosticador) {
         ventanaEquipos.getComboEquipoA().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Equipo> equipos = traerEquipos(sportyfyCore, nombrePronosticador);
+                Set<Equipo> equipos = traerEquipos(sportyfyCore, nombrePronosticador);
                 ventanaEquipos.actualizarComboB(equipos);
             }
         });

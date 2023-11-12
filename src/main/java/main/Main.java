@@ -19,7 +19,7 @@ public class Main {
                 VentanaHistorialControlador controladorHistorial;
                 try {
                     iniciador = new IniciadorSportyfyCore();
-                    SportyfyCore sportyfyCore = iniciador.iniciar("src/pronosticadores");
+                    SportyfyCore sportyfyCore = iniciador.iniciar("src/pronosticadores", "src/main/resources/datos/partidos");
 
                     System.out.print(sportyfyCore.getPronosticadores().size());
 
