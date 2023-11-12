@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class VentanaEquipos extends JFrame {
     private JFrame frame;
@@ -84,14 +85,14 @@ public class VentanaEquipos extends JFrame {
         frame.getContentPane().add(img);
     }
 
-    public void llenarCombos(ArrayList<Equipo> equipos) {
+    public void llenarCombos(Set<Equipo> equipos) {
         for (Equipo e : equipos) {
             this.comboEquipoA.addItem(e.getNombre());
         }
         actualizarComboB(equipos);
     }
 
-    public void actualizarComboB(ArrayList<Equipo> equipos) {
+    public void actualizarComboB(Set<Equipo> equipos) {
         this.comboEquipoB.removeAllItems();
         String a = (String) this.comboEquipoA.getSelectedItem();
 
