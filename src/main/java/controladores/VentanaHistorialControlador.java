@@ -49,9 +49,9 @@ public class VentanaHistorialControlador {
 
                 String ganador = nombreGanador(obtenerGanador(resultado));
                 if (!ganador.isEmpty())
-                    aux += darColor(169, 254, 88, "&nbsp;&nbsp;Ganador: " + ganador + "<br><br>");
+                    aux += darColor(169, 254, 88, "&nbsp;&nbsp;<b>Ganador: </b>" + ganador + "<br><br>");
                 else
-                    aux += darColor(169, 254, 88, "&nbsp;&nbsp;Empate<br><br>");
+                    aux += darColor(169, 254, 88, "&nbsp;&nbsp;<b>Empate</b><br><br>");
                 ret.append(aux);
             }
         }
