@@ -110,7 +110,6 @@ public class VentanaResultado extends JFrame implements PropertyChangeListener {
     }
 
     private Equipo obtenerGanador(Resultado resultado){
-        System.out.print("se obteiene el ganador");
         Optional<Integer> primerMarcador = resultado.getMarcador(resultado.getPrimerEquipo());
         Optional<Integer> segundoMarcador = resultado.getMarcador(resultado.getSegundoEquipo());
 
@@ -143,7 +142,6 @@ public class VentanaResultado extends JFrame implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if ("resultado".equals(evt.getPropertyName())) {
             Resultado resultadoNuevo = (Resultado) evt.getNewValue();
-            System.out.println("Se hizo un nuevo pronóstico con este resultado: " + resultadoNuevo.toString());
             Partido partido = new Partido(resultadoNuevo.getPrimerEquipo(), resultadoNuevo.getSegundoEquipo());
             mostrarResultado(resultadoNuevo);
         }

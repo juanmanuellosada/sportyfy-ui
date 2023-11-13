@@ -30,7 +30,7 @@ public class VentanaHistorial {
         frame.setBounds(100, 100, 362, 376);
         frame.getContentPane().setLayout(null);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         JLabel etiquetaTitulo = new JLabel("Historial de Pronósticos");
         etiquetaTitulo.setHorizontalAlignment(SwingConstants.LEFT);
