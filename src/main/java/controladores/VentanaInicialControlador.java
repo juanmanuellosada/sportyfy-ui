@@ -21,6 +21,7 @@ import java.util.Set;
 public class VentanaInicialControlador {
    private final VentanaInicial ventanaInicial;
 
+
     public VentanaInicialControlador(){
        this.ventanaInicial = new VentanaInicial();
     }

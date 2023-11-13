@@ -42,17 +42,18 @@ public class VentanaHistorialControlador {
 
     public String mostrarPronosticos(Historial historial){
         StringBuilder ret = new StringBuilder("<html>");
-        for (Resultado resultado : historial.getPronosticosRealizados().values()){
+        for (List<Resultado> resultadosPorPartido : historial.getPronosticosRealizados().values()){
+            for(Resultado resultado : resultadosPorPartido) {
+                String aux = "&nbsp;" + resultado.getPrimerEquipo().getNombre() + " <b> " + obtenerMarcador(resultado, resultado.getPrimerEquipo()) + " - ";
+                aux += obtenerMarcador(resultado, resultado.getSegundoEquipo()) + " </b>" + resultado.getSegundoEquipo().getNombre() + "<br>";
 
-            String aux = "&nbsp;"+ resultado.getPrimerEquipo().getNombre() +" <b> "+ obtenerMarcador(resultado, resultado.getPrimerEquipo()) +" - ";
-            aux += obtenerMarcador(resultado, resultado.getSegundoEquipo())+" </b>"+resultado.getSegundoEquipo().getNombre()+"<br>";
-
-            String ganador = nombreGanador(obtenerGanador(resultado));
-            if(!ganador.isEmpty())
-                aux += darColor(169,254,88,"&nbsp;&nbsp;Ganador: "+ganador+"<br><br>");
-            else
-                aux += darColor(169,254,88,"&nbsp;&nbsp;Empate<br><br>");
-            ret.append(aux);
+                String ganador = nombreGanador(obtenerGanador(resultado));
+                if (!ganador.isEmpty())
+                    aux += darColor(169, 254, 88, "&nbsp;&nbsp;Ganador: " + ganador + "<br><br>");
+                else
+                    aux += darColor(169, 254, 88, "&nbsp;&nbsp;Empate<br><br>");
+                ret.append(aux);
+            }
         }
         ret.append("<html>");
         return ret.toString();

@@ -104,11 +104,6 @@ public class VentanaResultado extends JFrame implements PropertyChangeListener {
         });
     }
 
-    public void mostrarResultado(String s){
-        msjGanadorEs.setText("<html><center>Según Sportyfy, no hay pronóstico a favor de ningún/n equipo, se prevee un empate.</center><html>");
-
-    }
-
     private Equipo obtenerGanador(Resultado resultado){
         Optional<Integer> primerMarcador = resultado.getMarcador(resultado.getPrimerEquipo());
         Optional<Integer> segundoMarcador = resultado.getMarcador(resultado.getSegundoEquipo());
