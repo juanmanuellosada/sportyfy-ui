@@ -29,7 +29,7 @@ public class VentanaHistorialControlador {
     public void cargarPantalla() {
         ventanaHistorial.mostrar(true);
         ventanaHistorial.setFecha(getFecha());
-        ventanaHistorial.llenarVentana(mostrarPronosticos(this.historial));
+        ventanaHistorial.llenarVentana(mostrarHistorial(this.historial));
     }
 
     private void accionBotonAtras() {
@@ -40,7 +40,7 @@ public class VentanaHistorialControlador {
         });
     }
 
-    public String mostrarPronosticos(Historial historial){
+    public String mostrarHistorial(Historial historial){
         StringBuilder ret = new StringBuilder("<html>");
         for (List<Resultado> resultadosPorPartido : historial.getPronosticosRealizados().values()){
             for(Resultado resultado : resultadosPorPartido) {
