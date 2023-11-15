@@ -1,12 +1,14 @@
 package controladores;
 
-import sportyfy.core.core.SportyfyCore;
+import sportyfy.core.Pronosticador;
+import sportyfy.core.entidades.core.SportyfyCore;
 import sportyfy.core.entidades.equipo.Equipo;
 import sportyfy.ui.VentanaEquipos;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class VentanaEquiposControlador {
     VentanaEquipos ventanaEquipos;
@@ -15,13 +17,26 @@ public class VentanaEquiposControlador {
         this.ventanaEquipos = new VentanaEquipos();
     }
 
-    public void iniciar(SportyfyCore sportyfyCore,String nombrePronosticador, VentanaHistorialControlador controlador) {
-        ArrayList<Equipo> equipos = (ArrayList<Equipo>) sportyfyCore.getEquipos();
+    public void iniciar(SportyfyCore sportyfyCore, String nombrePronosticador, VentanaHistorialControlador controladorHistorial) {
+        Set<Equipo> equipos = traerEquipos(sportyfyCore, nombrePronosticador);
         this.ventanaEquipos.inicializar();
-        this.ventanaEquipos.llenarCombos(equipos);
-        accionCombo(sportyfyCore);
-        iniciarVentanaPrediccion(sportyfyCore,nombrePronosticador, controlador);
+        if (!equipos.isEmpty()) {
+            this.ventanaEquipos.llenarCombos(equipos);
+        }
+        accionCombo(sportyfyCore, nombrePronosticador);
+        iniciarVentanaPrediccion(sportyfyCore, nombrePronosticador, controladorHistorial);
     }
+
+    private Set<Equipo> traerEquipos(SportyfyCore sportyfyCore, String nombrePronosticador) {
+        Set<Equipo> equipos = new HashSet<>();
+        for(Pronosticador p : sportyfyCore.getPronosticadores()){
+            if(p.getClass().getSimpleName().equals(nombrePronosticador)){
+                equipos = p.getEquipos();
+            }
+        }
+        return equipos;
+    }
+
     private void iniciarVentanaPrediccion(SportyfyCore sportyfyCore, String nombrePronosticador, VentanaHistorialControlador controladorHistorial) {
         ventanaEquipos.getBotonPrediccion().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -30,25 +45,19 @@ public class VentanaEquiposControlador {
                 equipoSeleccionadoA = (String) ventanaEquipos.getComboEquipoA().getSelectedItem();
                 equipoSeleccionadoB = (String) ventanaEquipos.getComboEquipoB().getSelectedItem();
 
-                if(equipoSeleccionadoA != null && equipoSeleccionadoA.equals(equipoSeleccionadoB)){
-                    JOptionPane.showMessageDialog(null, "Debes seleccionar dos equipos distintos!");
-                }
-                else{
-                    ventanaEquipos.mostrar(false);
-                    VentanaResultadoControlador controlador = new VentanaResultadoControlador(sportyfyCore, equipoSeleccionadoA, equipoSeleccionadoB);
-                    controlador.iniciar(sportyfyCore,nombrePronosticador, controladorHistorial);
-                }
+                ventanaEquipos.mostrar(false);
+                VentanaResultadoControlador controladorResultado = new VentanaResultadoControlador(equipoSeleccionadoA, equipoSeleccionadoB);
+                controladorResultado.iniciar(sportyfyCore, nombrePronosticador, controladorHistorial);
             }
         });
     }
 
-    private void accionCombo(SportyfyCore sportyfyCore) {
+    private void accionCombo(SportyfyCore sportyfyCore, String nombrePronosticador) {
         ventanaEquipos.getComboEquipoA().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ventanaEquipos.actualizarComboB((ArrayList<Equipo>) sportyfyCore.getEquipos());
+                Set<Equipo> equipos = traerEquipos(sportyfyCore, nombrePronosticador);
+                ventanaEquipos.actualizarComboB(equipos);
             }
         });
     }
-
-
 }

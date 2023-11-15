@@ -1,19 +1,24 @@
 package sportyfy.ui;
 
 import lombok.Getter;
-import sportyfy.core.Pronostico;
-import sportyfy.core.core.SportyfyCore;
 import sportyfy.core.entidades.equipo.Equipo;
+import sportyfy.core.entidades.partido.Partido;
+import sportyfy.core.entidades.resultado.Resultado;
+import sportyfy.historial.Historial;
 import sportyfy.ui.personalizador.JButtonRedondeado;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Observable;
-import java.util.Observer;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Objects;
+import java.util.Optional;
+
+import static java.lang.Integer.compare;
 
 @SuppressWarnings("deprecation")
-public class VentanaResultado extends JFrame implements Observer {
+public class VentanaResultado extends JFrame implements PropertyChangeListener {
     private JFrame frame;
     private JLabel msjGanadorEs;
     @Getter
@@ -24,6 +29,7 @@ public class VentanaResultado extends JFrame implements Observer {
     public void inicializar() {
         inicializarFrame();
         inicializarComponentes();
+
     }
 
     private void inicializarFrame() {
@@ -56,9 +62,9 @@ public class VentanaResultado extends JFrame implements Observer {
         agregarEfectoBotonNuevaPrediccion();
     }
 
-    private void mostrarResultado(Pronostico pronosticoActual) {
-        if(pronosticoActual.getEquipoGanador()!=null)
-            mostrarGanador(pronosticoActual.getEquipoGanador());
+    public void mostrarResultado(Resultado pronostico) {
+        if(obtenerGanador(pronostico) != null)
+            mostrarGanador(Objects.requireNonNull(obtenerGanador(pronostico)));
         else
             mostrarEmpate();
     }
@@ -98,16 +104,41 @@ public class VentanaResultado extends JFrame implements Observer {
         });
     }
 
+    private Equipo obtenerGanador(Resultado resultado){
+        Optional<Integer> primerMarcador = resultado.getMarcador(resultado.getPrimerEquipo());
+        Optional<Integer> segundoMarcador = resultado.getMarcador(resultado.getSegundoEquipo());
+
+        if(primerMarcador.isPresent() && segundoMarcador.isPresent()) {
+            int rtdoComparacion = compare(primerMarcador.get(), segundoMarcador.get());
+
+            switch (rtdoComparacion) {
+                case 1:
+                    return resultado.getPrimerEquipo();
+                case 0:
+                    return null;
+                case -1:
+                    return resultado.getSegundoEquipo();
+            }
+        }
+        else{
+            if(primerMarcador.isPresent())
+                return resultado.getPrimerEquipo();
+            else
+                return resultado.getSegundoEquipo();
+        }
+        return null;
+    }
+
     public void mostrar(Boolean bool){
         frame.setVisible(bool);
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof SportyfyCore) {
-            SportyfyCore sportyfyCore = (SportyfyCore) o;
-            Pronostico pronosticoActual = sportyfyCore.getPronosticoActual();
-            mostrarResultado(pronosticoActual);
+    public void propertyChange(PropertyChangeEvent evt) {
+        if ("resultado".equals(evt.getPropertyName())) {
+            Resultado resultadoNuevo = (Resultado) evt.getNewValue();
+            Partido partido = new Partido(resultadoNuevo.getPrimerEquipo(), resultadoNuevo.getSegundoEquipo());
+            mostrarResultado(resultadoNuevo);
         }
     }
 }

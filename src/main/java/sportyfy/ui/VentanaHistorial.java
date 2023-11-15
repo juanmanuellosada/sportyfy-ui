@@ -11,9 +11,8 @@ import java.awt.event.MouseEvent;
 
 public class VentanaHistorial {
     private JFrame frame;
-    private JLabel contenedorPronosticos;
+    private final JLabel contenedorPronosticos;
     private JLabel etiquetaFecha;
-    private JScrollPane scrollPane;
     @Getter
     private JButton botonAtras;
 
@@ -31,7 +30,7 @@ public class VentanaHistorial {
         frame.setBounds(100, 100, 362, 376);
         frame.getContentPane().setLayout(null);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
         JLabel etiquetaTitulo = new JLabel("Historial de Pronósticos");
         etiquetaTitulo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -54,7 +53,7 @@ public class VentanaHistorial {
         botonAtras.setBackground(new Color(32, 33, 36));
         botonAtras.setBounds(257, 11, 85, 20);
         frame.getContentPane().add(botonAtras);
-        agregarEfectoBotonAtras();
+        agregarAccionBotonAtras();
 
         JLabel contornoTitulo = new JLabel();
         ImageIcon image = new ImageIcon("src/recursos/contorno-titulo-azul.png");
@@ -63,7 +62,7 @@ public class VentanaHistorial {
         contornoTitulo.setBounds(0, 11, 192, 28);
         frame.getContentPane().add(contornoTitulo);
 
-        scrollPane = new JScrollPane();
+        JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(10, 92, 328, 236);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
@@ -89,7 +88,7 @@ public class VentanaHistorial {
         this.contenedorPronosticos.setText(s);
     }
 
-    private void agregarEfectoBotonAtras() {
+    private void agregarAccionBotonAtras() {
         botonAtras.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -102,7 +101,7 @@ public class VentanaHistorial {
             }
         });
     }
-    public void mostrar(Boolean bool){
-        frame.setVisible(bool);
+    public void mostrar(Boolean b){
+        frame.setVisible(b);
     }
 }

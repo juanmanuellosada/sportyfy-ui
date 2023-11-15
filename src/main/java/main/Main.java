@@ -4,12 +4,10 @@ import javax.swing.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Logger;
-
+import sportyfy.core.entidades.core.SportyfyCore;
+import sportyfy.core.servicios.iniciador.IniciadorSportyfyCore;
 import controladores.VentanaHistorialControlador;
 import controladores.VentanaInicialControlador;
-import sportyfy.core.core.SportyfyCore;
-import sportyfy.core.iniciadores.IniciadorSportyfyCore;
-import sportyfy.historial.Historial;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,11 +17,11 @@ public class Main {
                 VentanaHistorialControlador controladorHistorial;
                 try {
                     iniciador = new IniciadorSportyfyCore(false);
-                    SportyfyCore sportyfyCore = iniciador.iniciar("src/pronosticadores");
+                    SportyfyCore sportyfyCore = iniciador.iniciar("src/pronosticadores", "src/main/resources/datos/partidos");
 
                     controladorHistorial = new VentanaHistorialControlador();
-                    sportyfyCore.addObserver(controladorHistorial.getHistorial());
-                    controladorHistorial.iniciar(sportyfyCore);
+                    sportyfyCore.getNotificador().addPropertyChangeListener(controladorHistorial.getHistorial());
+                    controladorHistorial.iniciar();
 
                     VentanaInicialControlador ventanaInicialControlador = new VentanaInicialControlador();
                     ventanaInicialControlador.iniciar(sportyfyCore, controladorHistorial);
