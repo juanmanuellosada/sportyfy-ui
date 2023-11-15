@@ -16,7 +16,7 @@ public class Main {
                 IniciadorSportyfyCore iniciador;
                 VentanaHistorialControlador controladorHistorial;
                 try {
-                    iniciador = new IniciadorSportyfyCore();
+                    iniciador = new IniciadorSportyfyCore(false);
                     SportyfyCore sportyfyCore = iniciador.iniciar("src/pronosticadores", "src/main/resources/datos/partidos");
 
                     controladorHistorial = new VentanaHistorialControlador();
